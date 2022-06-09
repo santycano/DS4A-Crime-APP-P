@@ -1,5 +1,7 @@
-import dash_core_components as dcc
-import dash_html_components as html
+# import dash_core_components as dcc
+from dash import dcc
+# import dash_html_components as html
+from dash import html
 from dash.dependencies import Input, Output
 import plotly.express as px
 import pandas as pd
@@ -41,17 +43,17 @@ layout = html.Div([
 ])
 
 
-@app.callback(
-    Output(component_id='my-map', component_property='figure'),
-    [Input(component_id='pymnt-dropdown', component_property='value'),
-     Input(component_id='country-dropdown', component_property='value')]
-)
-def display_value(pymnt_chosen, country_chosen):
-    dfg_fltrd = dfg[(dfg['Order Country'] == country_chosen) &
-                    (dfg["Type"] == pymnt_chosen)]
-    dfg_fltrd = dfg_fltrd.groupby(["Customer State"])[['Sales']].sum()
-    dfg_fltrd.reset_index(inplace=True)
-    fig = px.choropleth(dfg_fltrd, locations="Customer State",
-                        locationmode="USA-states", color="Sales",
-                        scope="usa")
-    return fig
+# @app.callback(
+#     Output(component_id='my-map', component_property='figure'),
+#     [Input(component_id='pymnt-dropdown', component_property='value'),
+#      Input(component_id='country-dropdown', component_property='value')]
+# )
+# def display_value(pymnt_chosen, country_chosen):
+#     dfg_fltrd = dfg[(dfg['Order Country'] == country_chosen) &
+#                     (dfg["Type"] == pymnt_chosen)]
+#     dfg_fltrd = dfg_fltrd.groupby(["Customer State"])[['Sales']].sum()
+#     dfg_fltrd.reset_index(inplace=True)
+#     fig = px.choropleth(dfg_fltrd, locations="Customer State",
+#                         locationmode="USA-states", color="Sales",
+#                         scope="usa")
+#     return fig

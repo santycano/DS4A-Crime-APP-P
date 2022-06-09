@@ -1,0 +1,26 @@
+body {
+    margin: 0px
+}
+
+.likns{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 39px;
+    /* text-decoration-line: underline; */
+    text-decoration: none;
+    padding-right: 50px;
+    padding-left: 5px;
+    color: #000000;
+}
+
+.rowfld{
+    display: flex;
+    align-items: center; 
+}
+
+.ds4aimage{
+    margin-left: 30px;
+    margin-right: 90px;
+}
