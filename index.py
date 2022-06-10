@@ -11,7 +11,7 @@ from app import app
 from app import server
 
 # Connect to your app pages
-from apps import statistics, map, preditor
+from apps import statistics, map, preditor, inicio  
 
 
 
@@ -27,7 +27,7 @@ app.layout = html.Div([
         dcc.Link('Crime map', href='/apps/map',className="likns"),
         html.Img(src=app.get_asset_url('imagenes/imageCpredictor.png')),
         dcc.Link('Crime predictor', href='/apps/preditor',className="likns"),
-    ], className="rowfld",style={'background-color': '#FBF336', 'height': '140px'}),
+    ], className="rowfld",style={'backgroundColor': '#FBF336', 'height': '140px','width':'100%'}),
     html.Div(id='page-content', children=[])
 ])
 
@@ -42,7 +42,7 @@ def display_page(pathname):
     if pathname == '/apps/preditor':
         return preditor.layout
     else:
-        return "404 Page Error! Please choose a link"
+        return inicio.layout
 
 
 if __name__ == '__main__':

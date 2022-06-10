@@ -16,9 +16,18 @@ from app import app
 # dfg = pd.read_csv(DATA_PATH.joinpath("opsales.csv"))
 
 layout = html.Div([
-    html.H1('General Product Sales', style={"textAlign": "center"}),
+    # html.H1('General Product Sales', style={"textAlign": "center"}),
 
     html.Div([
+        html.Div(html.Span('Crime counter',style={'fontFamily': 'Inter','fontStyle': 'normal', 'fontWeight': '400','fontSize': '20px', 'lineHeight': '24px', 'color': '#FFFFFF'}),className='CrimeCounterTitle'),
+        html.Div([
+
+        ],className='crimeCounter'),
+
+
+
+
+
         # html.Div([
         #     html.Pre(children="Payment type", style={"fontSize":"150%"}),
         #     dcc.Dropdown(
@@ -36,8 +45,8 @@ layout = html.Div([
         #         options=[{'label': x, 'value': x} for x in sorted(dfg["Order Country"].unique())]
         #     )
         #     ], className='six columns'),
-        html.H1('Pruebaa')
-    ], className='row'),
+        # html.H1('Pruebaa')
+    ],className='leftnavBar'),
 
     # dcc.Graph(id='my-map', figure={}),
 ])
