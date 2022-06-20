@@ -27,7 +27,7 @@ app.layout = html.Div([
         dcc.Link('Crime map', href='/apps/map',className="likns"),
         html.Img(src=app.get_asset_url('imagenes/imageCpredictor.png')),
         dcc.Link('Crime predictor', href='/apps/preditor',className="likns"),
-    ], className="rowfld",style={'backgroundColor': '#FBF336', 'height': '140px','width':'100%'}),
+    ], className="rowfld",style={'backgroundColor': '#FBF336', 'height': '120px','width':'100%'}),
     html.Div(id='page-content', children=[])
 ])
 

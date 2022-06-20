@@ -47,9 +47,9 @@ body {
     position: absolute;
 width: 236px;
 /* height: 940px; */
-height: 86%;
+height: 89%;
 left: 0px;
-top: 140px;
+top: 120px;
 
 background: #4F4A4A;
 }
@@ -96,6 +96,23 @@ background: #ffffff;
     font-weight: 500;
     font-size: 32px;
     line-height: 39px;
+}
+
+.MembersPhothos{
+
+    /* position: absolute; */
+width: 225px;
+height: 225px;
+/* left: 75px;
+top: 3007px; */
+}
+
+.MemebersName{
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 39px;
 }
 
 
