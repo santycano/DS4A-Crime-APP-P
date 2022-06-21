@@ -46,8 +46,8 @@ body {
 
     position: absolute;
 width: 236px;
-/* height: 940px; */
-height: 89%;
+height: 940px;
+/* height: 89%; */
 left: 0px;
 top: 120px;
 
@@ -57,12 +57,14 @@ background: #4F4A4A;
 .CrimeCounterTitle{
     /* Crime counter */
 
-
+display: flex;
+align-items: center;
+justify-content: center;
 position: absolute;
 width: 180px;
 height: 43px;
 left: 28px;
-top: 75px;
+top: 60px;
 background: #333342;
 text-align: center;
 }
@@ -73,8 +75,55 @@ text-align: center;
 width: 180px;
 height: 130px;
 left: 28px;
-top: 118px;
+top: 103px;
 background: #ffffff;
+
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.crimeCounterNumber{
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+}
+
+.crimePosibilitiesNumber{
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+color: crimson;
+}
+
+.leftnavBarInputFont{
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 24px;
+
+color: #FFFFFF;
+}
+
+.rc-slider-track{
+    background-color: #FBF336;
+}
+.rc-slider-handle{
+    background-color: #FBF336;
+}
+.TituloSecciones{
+    position: relative;
+    left: 250px;
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 38px;
+/* line-height: 58px; */
 }
 
 .botonGoto{
