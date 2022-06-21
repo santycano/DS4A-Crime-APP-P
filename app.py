@@ -1,5 +1,5 @@
 import dash
-from sklearn.preprocessing import scale
+# from sklearn.preprocessing import scale
 
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True,
