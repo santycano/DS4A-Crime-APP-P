@@ -112,7 +112,7 @@ layout = html.Div([
         # Nicolas Box
 
     
-    ], style={'display':'flex'}),
+    ], style={'display':'flex'},className='Bloquedefotos'),
     
     
     

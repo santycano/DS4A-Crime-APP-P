@@ -171,3 +171,10 @@ line-height: 39px;
     margin-left: 30px;
     margin-right: 90px;
 }
+
+
+@media (max-width: 1366px) {
+    .Bloquedefotos {
+        flex-wrap: wrap;
+    }
+  }
