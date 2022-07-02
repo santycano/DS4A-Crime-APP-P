@@ -10,11 +10,11 @@ import pathlib
 from app import app
 
 # get relative data folder
-# PATH = pathlib.Path(__file__).parent
-# DATA_PATH = PATH.joinpath("../datasets").resolve()
+PATH = pathlib.Path(__file__).parent
+DATA_PATH = PATH.joinpath("../datasets").resolve()
 
 
-# dfg = pd.read_csv(DATA_PATH.joinpath("opsales.csv"))
+dfg = pd.read_csv(DATA_PATH.joinpath("opsales.csv"))
 
 layout = html.Div([
     # html.H1('General Product Sales', style={"textAlign": "center"}),
@@ -31,14 +31,27 @@ layout = html.Div([
 
         html.Div([
 
-            html.Div([
+            # html.Div([
+            #     html.Span('Year',className='leftnavBarInputFont'),
+            # dcc.Dropdown(['2016', '2017', '2018','2019'], id='year',style={'width':'180px'}),
+            # ]),
+
+
+             html.Div([
                 html.Span('Year',className='leftnavBarInputFont'),
-            dcc.Dropdown(['2016', '2017', '2018','2019'], id='year',style={'width':'180px'}),
+            dcc.Dropdown(options=[{'label': x, 'value': x} for x in sorted(dfg["Order Country"].unique())], id='country-dropdown',style={'width':'180px'},value='India', clearable=False,
+                persistence=True, persistence_type='local',),
             ]),
+
+            # html.Div([
+            #  html.Span('Month',className='leftnavBarInputFont'),
+            # dcc.Dropdown(['Janauary', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], id='Month',style={'width':'180px'}),
             
             html.Div([
              html.Span('Month',className='leftnavBarInputFont'),
-            dcc.Dropdown(['Janauary', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], id='Month',style={'width':'180px'}),
+            dcc.Dropdown(id='pymnt-dropdown', value='DEBIT', clearable=False,
+                persistence=True, persistence_type='session',
+                options=[{'label': x, 'value': x} for x in sorted(dfg["Type"].unique())],style={'width':'180px'}),
 
             ],style={'paddingTop':'10px'}),
 
@@ -89,21 +102,53 @@ layout = html.Div([
     ],className='TituloSecciones'),
 
 
-    # dcc.Graph(id='my-map', figure={}),
+
+
+
+
+
+
+
+    
+
+
+    #  html.H1('General Product Sales', style={"textAlign": "center"}),
+
+    # html.Div([
+    #     html.Div([
+    #         html.Pre(children="Payment type", style={"fontSize":"150%"}),
+    #         dcc.Dropdown(
+    #             id='pymnt-dropdown', value='DEBIT', clearable=False,
+    #             persistence=True, persistence_type='session',
+    #             options=[{'label': x, 'value': x} for x in sorted(dfg["Type"].unique())]
+    #         )
+    #     ], className='six columns'),
+
+    #     html.Div([
+    #         html.Pre(children="Country of destination", style={"fontSize": "150%"}),
+    #         dcc.Dropdown(
+    #             id='country-dropdown', value='India', clearable=False,
+    #             persistence=True, persistence_type='local',
+    #             options=[{'label': x, 'value': x} for x in sorted(dfg["Order Country"].unique())]
+    #         )
+    #         ], className='six columns'),
+    # ], className='row'),
+
+    dcc.Graph(id='my-map', figure={},style={'width':'500px','margin-left':'300px'}),
 ])
 
 
-# @app.callback(
-#     Output(component_id='my-map', component_property='figure'),
-#     [Input(component_id='pymnt-dropdown', component_property='value'),
-#      Input(component_id='country-dropdown', component_property='value')]
-# )
-# def display_value(pymnt_chosen, country_chosen):
-#     dfg_fltrd = dfg[(dfg['Order Country'] == country_chosen) &
-#                     (dfg["Type"] == pymnt_chosen)]
-#     dfg_fltrd = dfg_fltrd.groupby(["Customer State"])[['Sales']].sum()
-#     dfg_fltrd.reset_index(inplace=True)
-#     fig = px.choropleth(dfg_fltrd, locations="Customer State",
-#                         locationmode="USA-states", color="Sales",
-#                         scope="usa")
-#     return fig
+@app.callback(
+    Output(component_id='my-map', component_property='figure'),
+    [Input(component_id='pymnt-dropdown', component_property='value'),
+     Input(component_id='country-dropdown', component_property='value')]
+)
+def display_value(pymnt_chosen, country_chosen):
+    dfg_fltrd = dfg[(dfg['Order Country'] == country_chosen) &
+                    (dfg["Type"] == pymnt_chosen)]
+    dfg_fltrd = dfg_fltrd.groupby(["Customer State"])[['Sales']].sum()
+    dfg_fltrd.reset_index(inplace=True)
+    fig = px.choropleth(dfg_fltrd, locations="Customer State",
+                        locationmode="USA-states", color="Sales",
+                        scope="usa")
+    return fig
