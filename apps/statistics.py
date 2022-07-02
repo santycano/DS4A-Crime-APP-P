@@ -43,7 +43,7 @@ card = dbc.Card(
             # dbc.CardLink("External link", href="https://google.com"),
         ]
     ),
-    style={"width": "30rem"},class_name='card border-primary',
+    style={"width": "28rem"},class_name='card border-primary',
 )
 
 
@@ -168,12 +168,12 @@ layout = html.Div([
 
     # dcc.Graph(id='my-map', figure={},style={'width':'500px','marginLeft':'300px'}),
     dbc.Row([
-        dbc.Col([card]), dbc.Col([card]), dbc.Col([card])
-    ],style={'marginLeft':'300px','display':'flex','justify-content':'space-between','marginRight':'100px'}),
+        dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}),dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'})
+    ],style={'marginLeft':'300px','display':'flex','justify-content':'space-between','marginRight':'100px','flexWrap':'wrap'}),
 
-    dbc.Row([
-        dbc.Col([card]), dbc.Col([card]), dbc.Col([card])
-    ],style={'marginLeft':'300px','display':'flex','justify-content':'space-between','marginRight':'100px','marginTop':'50px'}),
+    # dbc.Row([
+    #     dbc.Col([card]), dbc.Col([card]), dbc.Col([card])
+    # ],style={'marginLeft':'300px','display':'flex','justify-content':'space-between','marginRight':'100px','marginTop':'50px','flexWrap':'wrap'}),
 ])
 
 

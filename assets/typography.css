@@ -47,9 +47,10 @@ body {
     position: fixed;
 width: 236px;
 /* height: 940px; */
-/* height: 89%; */
-height: 100%;
+height: 88%;
 
+/* height: 100%; */
+overflow-y: auto;
 left: 0px;
 top: 120px;
 
