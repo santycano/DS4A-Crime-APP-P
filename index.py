@@ -3,8 +3,12 @@
 from dash import dcc
 # import dash_bootstrap_components as dbc
 # import dash_html_components as html
-from dash import html
+from dash import html,Dash
+import dash_bootstrap_components as dbc
+
 from dash.dependencies import Input, Output
+
+import dash
 
 # Connect to main app.py file
 from app import app
@@ -12,8 +16,8 @@ from app import server
 
 # Connect to your app pages
 from apps import statistics, map, preditor, inicio  
-
-
+# app = dash.Dash(__name__)
+# app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 
 app.layout = html.Div([
@@ -27,8 +31,8 @@ app.layout = html.Div([
         dcc.Link('Crime map', href='/apps/map',className="likns"),
         html.Img(src=app.get_asset_url('imagenes/imageCpredictor.png')),
         dcc.Link('Crime predictor', href='/apps/preditor',className="likns"),
-    ], className="rowfld",style={'backgroundColor': '#FBF336', 'height': '120px','width':'100%'}),
-    html.Div(id='page-content', children=[])
+    ], className="rowfld",style={'backgroundColor': '#FBF336', 'height': '120px','width':'100%','position':'fixed','top':'0','zIndex':'100'}),
+    html.Div(id='page-content', children=[],style={'margin-top':'170px'})
 ])
 
 
@@ -46,4 +50,4 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)

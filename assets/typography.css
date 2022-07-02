@@ -44,10 +44,12 @@ body {
 
 .leftnavBar{
 
-    position: absolute;
+    position: fixed;
 width: 236px;
-height: 940px;
+/* height: 940px; */
 /* height: 89%; */
+height: 100%;
+
 left: 0px;
 top: 120px;
 
@@ -123,6 +125,7 @@ color: #FFFFFF;
 font-style: normal;
 font-weight: 400;
 font-size: 38px;
+margin-top: 170px;
 /* line-height: 58px; */
 }
 

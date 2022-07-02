@@ -3,11 +3,13 @@ from click import style
 from dash import dcc
 # import dash_html_components as html
 from dash import html
+import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 import plotly.express as px
 import pandas as pd
 import pathlib
 from app import app
+
 
 # get relative data folder
 PATH = pathlib.Path(__file__).parent
@@ -15,6 +17,36 @@ DATA_PATH = PATH.joinpath("../datasets").resolve()
 
 
 dfg = pd.read_csv(DATA_PATH.joinpath("opsales.csv"))
+
+# card = dbc.Card(
+#     dbc.CardBody(
+#         [
+#             html.H4("Title", id="card-title"),
+#             html.H2("100", id="card-value"),
+#             html.P("Description", id="card-description")
+#         ]
+#     )
+# )
+
+card = dbc.Card(
+    dbc.CardBody(
+        [
+            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            dcc.Graph(id='my-map', figure={},style={'width':'450px'}),
+            # html.H6("Card subtitle", className="card-subtitle"),
+            # html.P(
+            #     "Some quick example text to build on the card title and make "
+            #     "up the bulk of the card's content.",
+            #     className="card-text",
+            # ),
+            # dbc.CardLink("Card link", href="#"),
+            # dbc.CardLink("External link", href="https://google.com"),
+        ]
+    ),
+    style={"width": "30rem"},class_name='card border-primary',
+)
+
+
 
 layout = html.Div([
     # html.H1('General Product Sales', style={"textAlign": "center"}),
@@ -134,7 +166,14 @@ layout = html.Div([
     #         ], className='six columns'),
     # ], className='row'),
 
-    dcc.Graph(id='my-map', figure={},style={'width':'500px','margin-left':'300px'}),
+    # dcc.Graph(id='my-map', figure={},style={'width':'500px','marginLeft':'300px'}),
+    dbc.Row([
+        dbc.Col([card]), dbc.Col([card]), dbc.Col([card])
+    ],style={'marginLeft':'300px','display':'flex','justify-content':'space-between','marginRight':'100px'}),
+
+    dbc.Row([
+        dbc.Col([card]), dbc.Col([card]), dbc.Col([card])
+    ],style={'marginLeft':'300px','display':'flex','justify-content':'space-between','marginRight':'100px','marginTop':'50px'}),
 ])
 
 
