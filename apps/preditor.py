@@ -64,7 +64,7 @@ layout = html.Div([
     ],className='leftnavBar'),
 
     html.Div([
-    html.H2('Crime predictor'),
+    html.H2('Crime clustering'),
 
     ],className='TituloSecciones'),
 

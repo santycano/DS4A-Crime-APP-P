@@ -28,11 +28,11 @@ app.layout = html.Div([
         html.Img(src=app.get_asset_url('imagenes/imageCstatisctis.png')),
         dcc.Link('Crime statistics', href='/apps/statistics',className="likns"),
         html.Img(src=app.get_asset_url('imagenes/imageCmap.png')),
-        dcc.Link('Crime map', href='/apps/map',className="likns"),
+        dcc.Link('Spatial analysis', href='/apps/map',className="likns"),
         html.Img(src=app.get_asset_url('imagenes/imageCpredictor.png')),
-        dcc.Link('Crime predictor', href='/apps/preditor',className="likns"),
+        dcc.Link('Crime clustering', href='/apps/preditor',className="likns"),
     ], className="rowfld",style={'backgroundColor': '#FBF336', 'height': '120px','width':'100%','position':'fixed','top':'0','zIndex':'100'}),
-    html.Div(id='page-content', children=[],style={'margin-top':'170px'})
+    html.Div(id='page-content', children=[],style={'marginTop':'170px'})
 ])
 
 
@@ -50,4 +50,4 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)

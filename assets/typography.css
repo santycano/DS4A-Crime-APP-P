@@ -181,4 +181,24 @@ line-height: 39px;
     .Bloquedefotos {
         flex-wrap: wrap;
     }
+
+
+    .leftnavBar{
+
+        position: fixed;
+    width: 236px;
+    /* height: 940px; */
+    height: 84%;
+    
+    /* height: 100%; */
+    overflow-y: auto;
+    left: 0px;
+    top: 120px;
+    
+    background: #4F4A4A;
+    }
+
+
+
+
   }
