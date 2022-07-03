@@ -1,5 +1,6 @@
 body {
-    margin: 0px
+    margin: 0px;
+    overflow-x: hidden;
 }
 
 .likns{
@@ -176,6 +177,14 @@ line-height: 39px;
     margin-right: 90px;
 }
 
+.cardtamañomapa{
+    width: 95rem;
+}
+
+.graphtamañomapa{
+    width: 1450px;
+}
+
 
 @media (max-width: 1366px) {
     .Bloquedefotos {
@@ -196,6 +205,13 @@ line-height: 39px;
     top: 120px;
     
     background: #4F4A4A;
+    }
+    .cardtamañomapa{
+        width: 50rem;
+    }
+
+    .graphtamañomapa{
+        width: 800px;
     }
 
 

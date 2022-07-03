@@ -5,6 +5,8 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import pandas as pd
 import pathlib
+import dash_bootstrap_components as dbc
+
 from app import app
 
 # get relative data folder
@@ -13,6 +15,43 @@ from app import app
 
 
 # dfg = pd.read_csv(DATA_PATH.joinpath("opsales.csv"))
+
+card = dbc.Card(
+    dbc.CardBody(
+        [
+            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            dcc.Graph(id='my-map', figure={},className='graphtamañomapa'),
+            # html.H6("Card subtitle", className="card-subtitle"),
+            # html.P(
+            #     "Some quick example text to build on the card title and make "
+            #     "up the bulk of the card's content.",
+            #     className="card-text",
+            # ),
+            # dbc.CardLink("Card link", href="#"),
+            # dbc.CardLink("External link", href="https://google.com"),
+        ]
+    ),
+   class_name='card border-primary cardtamañomapa',
+)
+
+
+card2 = dbc.Card(
+    dbc.CardBody(
+        [
+            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            dcc.Graph(id='my-map', figure={},style={'width':'450px'}),
+            # html.H6("Card subtitle", className="card-subtitle"),
+            # html.P(
+            #     "Some quick example text to build on the card title and make "
+            #     "up the bulk of the card's content.",
+            #     className="card-text",
+            # ),
+            # dbc.CardLink("Card link", href="#"),
+            # dbc.CardLink("External link", href="https://google.com"),
+        ]
+    ),
+    style={"width": "28rem"},class_name='card border-primary',
+)
 
 
 layout = html.Div([
@@ -69,8 +108,24 @@ layout = html.Div([
 
     ],className='TituloSecciones'),
 
+    # dbc.Row([
+    #     dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}),dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'})
+    # ],style={'marginLeft':'300px','display':'flex','justifyContent':'space-between','marginRight':'100px','flexWrap':'wrap'}),
+
+
+    dbc.Row([
+        dbc.Col([card],style={'marginTop':'1.5rem'})
+    ],style={'marginLeft':'236px','display':'flex','justifyContent':'center','marginBottom':'50px','flexWrap':'wrap'}),
+
+     dbc.Row([
+        dbc.Col([card2],style={'marginTop':'1.5rem'}), dbc.Col([card2],style={'marginTop':'1.5rem'}), dbc.Col([card2],style={'marginTop':'1.5rem'}),dbc.Col([card2],style={'marginTop':'1.5rem'}), dbc.Col([card2],style={'marginTop':'1.5rem'}), dbc.Col([card2],style={'marginTop':'1.5rem'})
+    ],style={'marginLeft':'336px','display':'flex','justifyContent':'space-between','marginRight':'100px','flexWrap':'wrap','marginBottom':'50px'}),
+
 
     # dcc.Graph(id='my-map', figure={}),
 ])
+
+
+
 
 

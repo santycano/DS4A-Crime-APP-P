@@ -19,7 +19,7 @@ layout = html.Div([
 ], className='parrafo'),
     html.Iframe(src='https://www.youtube.com/embed/bDJXR5S8Bso',referrerPolicy='no-referrer',width='66%',height='683',title="YouTube video player",allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", style={'display':'block','margin':'auto'} ),
     # html.Iframe(src='https://www.youtube.com/embed/b7qZPMqHnl4',referrerPolicy='no-referrer',width='66%',height='683',title="YouTube video player",allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", style={'display':'block','margin':'auto'} ),
-    html.Button('Go to dashboard',className='botonGoto'),
+    dcc.Link(html.Button('Go to dashboard',className='botonGoto'),href='/apps/statistics') ,
     html.H1('Bucaramanga Dataset', style={"textAlign": "center"},className='Cindex'),
     html.P(['This project was made using data from the following sources:',html.Br(),html.Br(),
     '- Colombia open data-Crimes in Bucaramanga from January 2010 to December 2021 ',

@@ -169,7 +169,7 @@ layout = html.Div([
     # dcc.Graph(id='my-map', figure={},style={'width':'500px','marginLeft':'300px'}),
     dbc.Row([
         dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}),dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'})
-    ],style={'marginLeft':'300px','display':'flex','justifyContent':'space-between','marginRight':'100px','flexWrap':'wrap'}),
+    ],style={'marginLeft':'300px','display':'flex','justifyContent':'space-between','marginRight':'100px','flexWrap':'wrap','marginBottom':'50px'}),
 
     # dbc.Row([
     #     dbc.Col([card]), dbc.Col([card]), dbc.Col([card])
