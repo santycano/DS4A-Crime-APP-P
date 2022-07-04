@@ -10,7 +10,7 @@ import plotly.express as px
 import pandas as pd
 import pathlib
 from app import app
-
+import numpy as np
 import sqlalchemy
 from sqlalchemy import create_engine, text
 
@@ -41,21 +41,21 @@ DATA_PATH = PATH.joinpath("../datasets").resolve()
 
 dfg = pd.read_csv(DATA_PATH.joinpath("opsales.csv"))
 
-# card = dbc.Card(
-#     dbc.CardBody(
-#         [
-#             html.H4("Title", id="card-title"),
-#             html.H2("100", id="card-value"),
-#             html.P("Description", id="card-description")
-#         ]
-#     )
-# )
-
 card = dbc.Card(
     dbc.CardBody(
         [
+           html.H4("Title", id="card-title"),
+             html.H2("100", id="card-value"),
+            html.P("Description", id="card-description")
+       ]
+    )
+ )
+
+card1 = dbc.Card(
+    dbc.CardBody(
+        [
             html.H4("Title", className="card-title",style={'textAlign':'center'}),
-            # dcc.Graph(id='my-map', figure={},style={'width':'450px'}),
+            dcc.Graph(id='my-barplot', figure={},style={'width':'450px'}),
             # html.H6("Card subtitle", className="card-subtitle"),
             # html.P(
             #     "Some quick example text to build on the card title and make "
@@ -68,6 +68,65 @@ card = dbc.Card(
     ),
     style={"width": "28rem"},class_name='card border-primary',
 )
+
+card2 = dbc.Card(
+    dbc.CardBody(
+        [
+            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            dcc.Graph(id='my-time-serie', figure={},style={'width':'450px'}),
+            # html.H6("Card subtitle", className="card-subtitle"),
+            # html.P(
+            #     "Some quick example text to build on the card title and make "
+            #     "up the bulk of the card's content.",
+            #     className="card-text",
+            # ),
+            # dbc.CardLink("Card link", href="#"),
+            # dbc.CardLink("External link", href="https://google.com"),
+        ]
+    ),
+    style={"width": "28rem"},class_name='card border-primary',
+)
+
+
+card3 = dbc.Card(
+    dbc.CardBody(
+        [
+            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            dcc.Graph(id='my-paralell', figure={},style={'width':'450px'}),
+            # html.H6("Card subtitle", className="card-subtitle"),
+            # html.P(
+            #     "Some quick example text to build on the card title and make "
+            #     "up the bulk of the card's content.",
+            #     className="card-text",
+            # ),
+            # dbc.CardLink("Card link", href="#"),
+            # dbc.CardLink("External link", href="https://google.com"),
+        ]
+    ),
+    style={"width": "28rem"},class_name='card border-primary',
+)
+
+
+
+card4 = dbc.Card(
+    dbc.CardBody(
+        [
+            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            dcc.Graph(id='my-heat-map', figure={},style={'width':'450px'}),
+            # html.H6("Card subtitle", className="card-subtitle"),
+            # html.P(
+            #     "Some quick example text to build on the card title and make "
+            #     "up the bulk of the card's content.",
+            #     className="card-text",
+            # ),
+            # dbc.CardLink("Card link", href="#"),
+            # dbc.CardLink("External link", href="https://google.com"),
+        ]
+    ),
+    style={"width": "28rem"},class_name='card border-primary',
+)
+
+
 
 
 
@@ -95,7 +154,8 @@ layout = html.Div([
                 min_date_allowed=date(1995, 8, 5),
                 max_date_allowed=date(2017, 9, 19),
                 initial_visible_month=date(2017, 8, 5),
-                end_date=date(2017, 8, 25),
+                start_date=date(2010,1,1),
+                end_date=date(2021,12,31),
                 style={'width':'180px','zIndex':'100'},
                 ),
             ]),
@@ -127,7 +187,7 @@ layout = html.Div([
 
             html.Div([
              html.Span("Neighborhood",className='leftnavBarInputFont'),
-            dcc.Dropdown(options=[{'label': str(x), 'value': str(x)} for x in list(df.nom_comuna.unique())]+ [{'label': 'All', 'value': 'All'}], id='nomComuna-dropdown',style={'width':'180px'}, clearable=False,
+            dcc.Dropdown(options=[{'label': str(x), 'value': str(x)} for x in list(df.nom_comuna.unique())]+ [{'label': 'All', 'value': 'All'}],id='nomComuna-dropdown',style={'width':'180px'}, clearable=False,
                 persistence=True, persistence_type='local',),                
             ],style={'paddingTop':'10px'}),
 
@@ -188,13 +248,103 @@ layout = html.Div([
 
     # dcc.Graph(id='my-map', figure={},style={'width':'500px','marginLeft':'300px'}),
     dbc.Row([
-        dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}),dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'})
+        dbc.Col([card1],style={'marginTop':'1.5rem'}), dbc.Col([card2],style={'marginTop':'1.5rem'}), dbc.Col([card3],style={'marginTop':'1.5rem'}),dbc.Col([card4],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'})
     ],style={'marginLeft':'300px','display':'flex','justifyContent':'space-between','marginRight':'100px','flexWrap':'wrap','marginBottom':'50px'}),
 
     # dbc.Row([
     #     dbc.Col([card]), dbc.Col([card]), dbc.Col([card])
     # ],style={'marginLeft':'300px','display':'flex','justify-content':'space-between','marginRight':'100px','marginTop':'50px','flexWrap':'wrap'}),
 ])
+
+## Barplot frequency macro categories
+
+@app.callback(
+    Output(component_id='my-barplot', component_property='figure'),
+    [Input(component_id='my-date-picker-range', component_property='start_date'),
+     Input(component_id='my-date-picker-range', component_property='end_date'),
+     Input(component_id='nomComuna-dropdown', component_property='value'),
+     Input(component_id='nomConducta-dropdown', component_property='value')])
+def display_barplot(start_date,end_date,comuna,conducta):
+
+    fig = px.bar(df.categ_crimen.value_counts().sort_values(ascending=True).head(10), orientation="h",
+                 title='Top 10 Type of crime', color_discrete_sequence=px.colors.qualitative.Bold).update_layout(
+        xaxis_title="Frequency", yaxis_title="Crime Macro-Category", title_x=0.5,
+        template="simple_white")
+
+    return fig
+
+
+
+## Month Time serie of crime
+@app.callback(
+    Output(component_id='my-time-serie', component_property='figure'),
+    [Input(component_id='my-date-picker-range', component_property='start_date'),
+     Input(component_id='my-date-picker-range', component_property='end_date'),
+     Input(component_id='nomComuna-dropdown', component_property='value'),
+     Input(component_id='nomConducta-dropdown', component_property='value')])
+
+def display_ts(start_date,end_date,comuna,conducta):
+
+
+
+    crimen_neto_mes = df.groupby(["fecha_mes"])["orden"].count().reset_index()
+    crimen_neto_mes["fecha_mes"] = crimen_neto_mes["fecha_mes"].astype("str")
+    crimen_neto_mes["fecha_mes"] = pd.to_datetime(crimen_neto_mes["fecha_mes"])
+
+    crimen_neto_mes.rename(columns={'fecha_mes': 'Month', 'orden': 'Quantity'}, inplace=True)
+
+    fig = px.line(crimen_neto_mes, x="Month", y="Quantity",
+                  title='Total of crimes ocurred in Bucaramanga by month').update_layout(
+        title_x=0.5
+    )
+
+    return fig
+
+## Paralell coordinates of weapons
+
+@app.callback(
+    Output(component_id='my-paralell', component_property='figure'),
+    [Input(component_id='my-date-picker-range', component_property='start_date'),
+     Input(component_id='my-date-picker-range', component_property='end_date'),
+     Input(component_id='nomComuna-dropdown', component_property='value'),
+     Input(component_id='nomConducta-dropdown', component_property='value')])
+
+def display_paralell(start_date, end_date, comuna, conducta):
+
+
+    fig = px.parallel_categories(df, dimensions=['movil_agresor', 'movil_victima'],
+                                 title='Parallel categories victim/attacker transportation').update_layout(
+        title_x=0.5
+    )
+
+    return fig
+
+
+## Heatmap day of week
+
+@app.callback(
+    Output(component_id='my-heat-map', component_property='figure'),
+    [Input(component_id='my-date-picker-range', component_property='start_date'),
+     Input(component_id='my-date-picker-range', component_property='end_date'),
+     Input(component_id='nomComuna-dropdown', component_property='value'),
+     Input(component_id='nomConducta-dropdown', component_property='value')])
+def display_dayheatmap(start_date, end_date, comuna, conducta):
+
+    cross = pd.crosstab(df["categ_crimen"], df["dia_semana"], normalize="index")
+    cross = np.round(np.divide(cross, 1) * 100, 2)
+    fig = px.imshow(cross, text_auto=True)
+
+    return fig
+
+
+
+
+
+
+
+
+
+
 
 
 # @app.callback(
