@@ -72,6 +72,24 @@ card1 = dbc.Card(
     style={"width": "100%"},class_name='card border-primary',
 )
 
+carddoble = dbc.Card(
+    dbc.CardBody(
+        [
+            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            dcc.Graph(id='my-barplot', figure={},style={'width':'700px','height':'1000px'}),
+            # html.H6("Card subtitle", className="card-subtitle"),
+            # html.P(
+            #     "Some quick example text to build on the card title and make "
+            #     "up the bulk of the card's content.",
+            #     className="card-text",
+            # ),
+            # dbc.CardLink("Card link", href="#"),
+            # dbc.CardLink("External link", href="https://google.com"),
+        ]
+    ),
+    style={"width": "100%","height": "100%"},class_name='card border-primary',
+)
+
 card2 = dbc.Card(
     dbc.CardBody(
         [
@@ -87,7 +105,7 @@ card2 = dbc.Card(
             # dbc.CardLink("External link", href="https://google.com"),
         ]
     ),
-    style={"width": "100%"},class_name='card border-primary',
+    style={"width": "100%",'marginTop':'1.5rem'},class_name='card border-primary',
 )
 
 
@@ -252,7 +270,7 @@ layout = html.Div([
 
     # dcc.Graph(id='my-map', figure={},style={'width':'500px','marginLeft':'300px'}),
     dbc.Row([
-        dbc.Col([card1],style={'marginTop':'1.5rem'}), dbc.Col([card2],style={'marginTop':'1.5rem'}), dbc.Col([card3],style={'marginTop':'1.5rem'}),dbc.Col([card4],style={'marginTop':'1.5rem'}),
+       dbc.Col([carddoble],style={'marginTop':'1.5rem'}), dbc.Col([card1,card2],style={'marginTop':'1.5rem'}), dbc.Col([card3],style={'marginTop':'1.5rem'}),dbc.Col([card4],style={'marginTop':'1.5rem'}),
     ],style={'marginLeft':'300px','display':'flex','justifyContent':'space-between','marginRight':'100px','flexWrap':'wrap','marginBottom':'50px'}),
 
     # dbc.Row([
