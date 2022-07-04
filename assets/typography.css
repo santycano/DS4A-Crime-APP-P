@@ -51,7 +51,8 @@ width: 236px;
 height: 88%;
 
 /* height: 100%; */
-overflow-y: auto;
+/* overflow-y: auto; */
+overflow: visible;
 left: 0px;
 top: 120px;
 
@@ -212,7 +213,8 @@ line-height: 39px;
     height: 84%;
     
     /* height: 100%; */
-    overflow-y: auto;
+    /* overflow-y: auto; */
+    overflow: visible;
     left: 0px;
     top: 120px;
     

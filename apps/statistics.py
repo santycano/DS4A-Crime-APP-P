@@ -1,4 +1,5 @@
 # import dash_core_components as dcc
+from datetime import date
 from click import style
 from dash import dcc
 # import dash_html_components as html
@@ -9,6 +10,28 @@ import plotly.express as px
 import pandas as pd
 import pathlib
 from app import app
+
+import sqlalchemy
+from sqlalchemy import create_engine, text
+
+
+DB_USERNAME = 'postgres' # Replace with the username you just created
+DB_PASSWORD = 'Team227pry_' # Replace with the password you just created
+
+engine=create_engine(f'postgresql://{DB_USERNAME}:{DB_PASSWORD}@ds4a-team227-test.cqkc95x5yyj2.us-east-1.rds.amazonaws.com/crimen_bga', max_overflow=20)
+
+
+
+df = pd.read_sql_table("crimen_base_ex",engine)
+
+# df = df.astype({"armas_medios": "category", "barrios_hecho": "category", "zona": "category", "nom_comuna": "category", "dia_semana": "category",  
+
+# "descripcion_conducta": "category", "conducta": "category", "clasificaciones_delito": "category", "curso_de_vida": "category",  
+
+# "estado_civil_persona": "category", "genero": "category", "movil_agresor": "category", "movil_victima": "category","mes":"category"}) 
+
+df2= pd.read_sql_table("crimen_base_ex_mod",engine)
+
 
 
 # get relative data folder
@@ -32,7 +55,7 @@ card = dbc.Card(
     dbc.CardBody(
         [
             html.H4("Title", className="card-title",style={'textAlign':'center'}),
-            dcc.Graph(id='my-map', figure={},style={'width':'450px'}),
+            # dcc.Graph(id='my-map', figure={},style={'width':'450px'}),
             # html.H6("Card subtitle", className="card-subtitle"),
             # html.P(
             #     "Some quick example text to build on the card title and make "
@@ -63,64 +86,61 @@ layout = html.Div([
 
         html.Div([
 
-            # html.Div([
-            #     html.Span('Year',className='leftnavBarInputFont'),
-            # dcc.Dropdown(['2016', '2017', '2018','2019'], id='year',style={'width':'180px'}),
-            # ]),
-
-
              html.Div([
-                html.Span('Year',className='leftnavBarInputFont'),
-            dcc.Dropdown(options=[{'label': x, 'value': x} for x in sorted(dfg["Order Country"].unique())], id='country-dropdown',style={'width':'180px'},value='India', clearable=False,
-                persistence=True, persistence_type='local',),
+                html.Span('Date',className='leftnavBarInputFont'),
+            # dcc.Dropdown(options=[{'label': x, 'value': x} for x in sorted(dfg["Order Country"].unique())], id='country-dropdown',style={'width':'180px'},value='India', clearable=False,
+            #     persistence=True, persistence_type='local',),
+            dcc.DatePickerRange(
+                id='my-date-picker-range',
+                min_date_allowed=date(1995, 8, 5),
+                max_date_allowed=date(2017, 9, 19),
+                initial_visible_month=date(2017, 8, 5),
+                end_date=date(2017, 8, 25),
+                style={'width':'180px','zIndex':'100'},
+                ),
             ]),
 
+
+
+
+            
             # html.Div([
             #  html.Span('Month',className='leftnavBarInputFont'),
-            # dcc.Dropdown(['Janauary', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], id='Month',style={'width':'180px'}),
-            
-            html.Div([
-             html.Span('Month',className='leftnavBarInputFont'),
-            dcc.Dropdown(id='pymnt-dropdown', value='DEBIT', clearable=False,
-                persistence=True, persistence_type='session',
-                options=[{'label': x, 'value': x} for x in sorted(dfg["Type"].unique())],style={'width':'180px'}),
+            # dcc.Dropdown(id='pymnt-dropdown', value='DEBIT', clearable=False,
+            #     persistence=True, persistence_type='session',
+            #     options=[{'label': x, 'value': x} for x in sorted(dfg["Type"].unique())],style={'width':'180px'}),
 
-            ],style={'paddingTop':'10px'}),
+            # ],style={'paddingTop':'10px'}),
 
-            html.Div([
-             html.Span('Day',className='leftnavBarInputFont'),
-            dcc.Dropdown(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'], id='Day',style={'width':'180px'}),    
-            # dcc.Input(
-            # id="day",
-            # type="number",
-            # placeholder="",
-            # style={'height':'28px'},
-            # )            
-            ],style={'paddingTop':'10px'}),
 
-            html.Div([
-             html.Span("Victim's gender",className='leftnavBarInputFont'),
-            dcc.Dropdown(['Male', 'Female', 'Undefined'], id='gender',style={'width':'180px'}),                
-            ],style={'paddingTop':'10px'}),
+
+            # html.Div([
+            #  html.Span('Day',className='leftnavBarInputFont'),
+            # dcc.Dropdown(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'], id='Day',style={'width':'180px'}),    
+           
+            # ],style={'paddingTop':'10px'}),
+
+            # html.Div([
+            #  html.Span("Victim's gender",className='leftnavBarInputFont'),
+            # dcc.Dropdown(['Male', 'Female', 'Undefined'], id='gender',style={'width':'180px'}),                
+            # ],style={'paddingTop':'10px'}),
 
             html.Div([
              html.Span("Neighborhood",className='leftnavBarInputFont'),
-            dcc.Dropdown(['San Francisco', 'La Concordia', 'Provenza'], id='neighborhood',style={'width':'180px'}),                
+            dcc.Dropdown(options=[{'label': str(x), 'value': str(x)} for x in list(df.nom_comuna.unique())]+ [{'label': 'All', 'value': 'All'}], id='nomComuna-dropdown',style={'width':'180px'}, clearable=False,
+                persistence=True, persistence_type='local',),                
             ],style={'paddingTop':'10px'}),
 
             html.Div([
              html.Span("Criminal offense",className='leftnavBarInputFont'),
-            dcc.Dropdown(['Robbery', 'Aggravated assault', 'Total violent crime'], id='offense',style={'width':'180px'}),                
+            dcc.Dropdown(options=[{'label': str(x), 'value': str(x)} for x in list(df.conducta.unique())]+ [{'label': 'All', 'value': 'All'}], id='nomConducta-dropdown',style={'width':'180px',"display": "inline-block"}, clearable=False,
+                persistence=True, persistence_type='local',optionHeight=100),                 
             ],style={'paddingTop':'10px'}),
 
-            html.Div([
-             html.Span("Victim's age",className='leftnavBarInputFont'),
-            # dcc.Input(
-            # id="age",
-            # type='range',
-            # )
-            dcc.RangeSlider(0, 80, value=[0, 80],tooltip={"placement": "bottom", "always_visible": True})
-            ],style={'paddingTop':'10px'}),
+            # html.Div([
+            #  html.Span("Victim's age",className='leftnavBarInputFont'),
+            # dcc.RangeSlider(0, 80, value=[0, 80],tooltip={"placement": "bottom", "always_visible": True})
+            # ],style={'paddingTop':'10px'}),
         
         
         ],style={'top':'300px','position':'absolute','paddingLeft':'28px'}),
@@ -177,17 +197,17 @@ layout = html.Div([
 ])
 
 
-@app.callback(
-    Output(component_id='my-map', component_property='figure'),
-    [Input(component_id='pymnt-dropdown', component_property='value'),
-     Input(component_id='country-dropdown', component_property='value')]
-)
-def display_value(pymnt_chosen, country_chosen):
-    dfg_fltrd = dfg[(dfg['Order Country'] == country_chosen) &
-                    (dfg["Type"] == pymnt_chosen)]
-    dfg_fltrd = dfg_fltrd.groupby(["Customer State"])[['Sales']].sum()
-    dfg_fltrd.reset_index(inplace=True)
-    fig = px.choropleth(dfg_fltrd, locations="Customer State",
-                        locationmode="USA-states", color="Sales",
-                        scope="usa")
-    return fig
+# @app.callback(
+#     Output(component_id='my-map', component_property='figure'),
+#     [Input(component_id='pymnt-dropdown', component_property='value'),
+#      Input(component_id='country-dropdown', component_property='value')]
+# )
+# def display_value(pymnt_chosen, country_chosen):
+#     dfg_fltrd = dfg[(dfg['Order Country'] == country_chosen) &
+#                     (dfg["Type"] == pymnt_chosen)]
+#     dfg_fltrd = dfg_fltrd.groupby(["Customer State"])[['Sales']].sum()
+#     dfg_fltrd.reset_index(inplace=True)
+#     fig = px.choropleth(dfg_fltrd, locations="Customer State",
+#                         locationmode="USA-states", color="Sales",
+#                         scope="usa")
+#     return fig
