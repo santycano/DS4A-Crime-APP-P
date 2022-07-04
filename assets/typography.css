@@ -178,11 +178,23 @@ line-height: 39px;
 }
 
 .cardtamañomapa{
-    width: 95rem;
+    /* width: 95rem; */
+    width: 100%;
 }
 
 .graphtamañomapa{
     width: 1450px;
+
+
+}
+@media (max-width: 1900px) {
+    .graphtamañomapa{
+        /* width: 1450px; */
+        /* width: fit-content; */
+        width: 1000px;
+    
+    
+    }
 }
 
 
@@ -207,7 +219,8 @@ line-height: 39px;
     background: #4F4A4A;
     }
     .cardtamañomapa{
-        width: 50rem;
+        /* width: 50rem; */
+        width: 100%;
     }
 
     .graphtamañomapa{
