@@ -156,6 +156,7 @@ layout = html.Div([
                 initial_visible_month=date(2017, 8, 5),
                 start_date=date(2010,1,1),
                 end_date=date(2021,12,31),
+                with_portal=True,
                 style={'width':'180px','zIndex':'100'},
                 ),
             ]),
