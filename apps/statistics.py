@@ -13,6 +13,7 @@ from app import app
 import numpy as np
 import sqlalchemy
 from sqlalchemy import create_engine, text
+import datetime
 
 
 DB_USERNAME = 'postgres' # Replace with the username you just created
@@ -31,6 +32,8 @@ df = pd.read_sql_table("crimen_base_ex",engine)
 # "estado_civil_persona": "category", "genero": "category", "movil_agresor": "category", "movil_victima": "category","mes":"category"}) 
 
 df2= pd.read_sql_table("crimen_base_ex_mod",engine)
+
+df['fechaconvert'] = pd.to_datetime(df['fecha'], format="%m/%d/%Y")
 
 
 
@@ -55,7 +58,7 @@ card1 = dbc.Card(
     dbc.CardBody(
         [
             html.H4("Title", className="card-title",style={'textAlign':'center'}),
-            dcc.Graph(id='my-barplot', figure={},style={'width':'450px'}),
+            dcc.Graph(id='my-barplot', figure={},style={'width':'700px'}),
             # html.H6("Card subtitle", className="card-subtitle"),
             # html.P(
             #     "Some quick example text to build on the card title and make "
@@ -66,14 +69,14 @@ card1 = dbc.Card(
             # dbc.CardLink("External link", href="https://google.com"),
         ]
     ),
-    style={"width": "28rem"},class_name='card border-primary',
+    style={"width": "100%"},class_name='card border-primary',
 )
 
 card2 = dbc.Card(
     dbc.CardBody(
         [
             html.H4("Title", className="card-title",style={'textAlign':'center'}),
-            dcc.Graph(id='my-time-serie', figure={},style={'width':'450px'}),
+            dcc.Graph(id='my-time-serie', figure={},style={'width':'700px'}),
             # html.H6("Card subtitle", className="card-subtitle"),
             # html.P(
             #     "Some quick example text to build on the card title and make "
@@ -84,7 +87,7 @@ card2 = dbc.Card(
             # dbc.CardLink("External link", href="https://google.com"),
         ]
     ),
-    style={"width": "28rem"},class_name='card border-primary',
+    style={"width": "100%"},class_name='card border-primary',
 )
 
 
@@ -92,7 +95,7 @@ card3 = dbc.Card(
     dbc.CardBody(
         [
             html.H4("Title", className="card-title",style={'textAlign':'center'}),
-            dcc.Graph(id='my-paralell', figure={},style={'width':'450px'}),
+            dcc.Graph(id='my-paralell', figure={},style={'width':'700px'}),
             # html.H6("Card subtitle", className="card-subtitle"),
             # html.P(
             #     "Some quick example text to build on the card title and make "
@@ -103,7 +106,7 @@ card3 = dbc.Card(
             # dbc.CardLink("External link", href="https://google.com"),
         ]
     ),
-    style={"width": "28rem"},class_name='card border-primary',
+    style={"width": "100%"},class_name='card border-primary',
 )
 
 
@@ -112,7 +115,7 @@ card4 = dbc.Card(
     dbc.CardBody(
         [
             html.H4("Title", className="card-title",style={'textAlign':'center'}),
-            dcc.Graph(id='my-heat-map', figure={},style={'width':'450px'}),
+            dcc.Graph(id='my-heat-map', figure={},style={'width':'700px'}),
             # html.H6("Card subtitle", className="card-subtitle"),
             # html.P(
             #     "Some quick example text to build on the card title and make "
@@ -123,7 +126,7 @@ card4 = dbc.Card(
             # dbc.CardLink("External link", href="https://google.com"),
         ]
     ),
-    style={"width": "28rem"},class_name='card border-primary',
+    style={"width": "100%"},class_name='card border-primary',
 )
 
 
@@ -137,7 +140,7 @@ layout = html.Div([
 
         html.Div(html.Span('Crime counter',style={'fontFamily': 'Inter','fontStyle': 'normal', 'fontWeight': '400','fontSize': '20px', 'lineHeight': '24px', 'color': '#FFFFFF'}),className='CrimeCounterTitle'),
         html.Div([
-            html.Span('11.530',className='crimeCounterNumber'),
+            html.Span(children={},className='crimeCounterNumber',id='CrimeCountNumber'),
             html.Img(src=app.get_asset_url('imagenes/ExtraIcons/IconStatistics.png'),style={'padding':'5px'})
 
         ],className='crimeCounter'),
@@ -152,8 +155,8 @@ layout = html.Div([
             dcc.DatePickerRange(
                 id='my-date-picker-range',
                 min_date_allowed=date(1995, 8, 5),
-                max_date_allowed=date(2017, 9, 19),
-                initial_visible_month=date(2017, 8, 5),
+                max_date_allowed=date(2020, 9, 19),
+                #initial_visible_month=date(2017, 8, 5),
                 start_date=date(2010,1,1),
                 end_date=date(2021,12,31),
                 with_portal=True,
@@ -188,13 +191,13 @@ layout = html.Div([
 
             html.Div([
              html.Span("Neighborhood",className='leftnavBarInputFont'),
-            dcc.Dropdown(options=[{'label': str(x), 'value': str(x)} for x in list(df.nom_comuna.unique())]+ [{'label': 'All', 'value': 'All'}],id='nomComuna-dropdown',style={'width':'180px'}, clearable=False,
+            dcc.Dropdown(options=[{'label': 'All', 'value': 'All'}]+[{'label': str(x), 'value': str(x)} for x in list(df.nom_comuna.unique())],id='nomComuna-dropdown',style={'width':'180px'}, clearable=False,
                 persistence=True, persistence_type='local',),                
             ],style={'paddingTop':'10px'}),
 
             html.Div([
              html.Span("Criminal offense",className='leftnavBarInputFont'),
-            dcc.Dropdown(options=[{'label': str(x), 'value': str(x)} for x in list(df.conducta.unique())]+ [{'label': 'All', 'value': 'All'}], id='nomConducta-dropdown',style={'width':'180px',"display": "inline-block"}, clearable=False,
+            dcc.Dropdown(options=[{'label': 'All', 'value': 'All'}]+[{'label': str(x), 'value': str(x)} for x in list(df.conducta.unique())], id='nomConducta-dropdown',style={'width':'180px',"display": "inline-block"}, clearable=False,
                 persistence=True, persistence_type='local',optionHeight=100),                 
             ],style={'paddingTop':'10px'}),
 
@@ -249,7 +252,7 @@ layout = html.Div([
 
     # dcc.Graph(id='my-map', figure={},style={'width':'500px','marginLeft':'300px'}),
     dbc.Row([
-        dbc.Col([card1],style={'marginTop':'1.5rem'}), dbc.Col([card2],style={'marginTop':'1.5rem'}), dbc.Col([card3],style={'marginTop':'1.5rem'}),dbc.Col([card4],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'}), dbc.Col([card],style={'marginTop':'1.5rem'})
+        dbc.Col([card1],style={'marginTop':'1.5rem'}), dbc.Col([card2],style={'marginTop':'1.5rem'}), dbc.Col([card3],style={'marginTop':'1.5rem'}),dbc.Col([card4],style={'marginTop':'1.5rem'}),
     ],style={'marginLeft':'300px','display':'flex','justifyContent':'space-between','marginRight':'100px','flexWrap':'wrap','marginBottom':'50px'}),
 
     # dbc.Row([
@@ -266,8 +269,14 @@ layout = html.Div([
      Input(component_id='nomComuna-dropdown', component_property='value'),
      Input(component_id='nomConducta-dropdown', component_property='value')])
 def display_barplot(start_date,end_date,comuna,conducta):
+    if comuna=='All':
+        dfg_fltrd = df[(df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    else:
+        dfg_fltrd = df[(df['nom_comuna'] == comuna) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)    
 
-    fig = px.bar(df.categ_crimen.value_counts().sort_values(ascending=True).head(10), orientation="h",
+    fig = px.bar(dfg_fltrd.categ_crimen.value_counts().sort_values(ascending=True).head(10), orientation="h",
                  title='Top 10 Type of crime', color_discrete_sequence=px.colors.qualitative.Bold).update_layout(
         xaxis_title="Frequency", yaxis_title="Crime Macro-Category", title_x=0.5,
         template="simple_white")
@@ -285,10 +294,23 @@ def display_barplot(start_date,end_date,comuna,conducta):
      Input(component_id='nomConducta-dropdown', component_property='value')])
 
 def display_ts(start_date,end_date,comuna,conducta):
+    if  (comuna=='All') & (conducta=='All'):
+        dfg_fltrd = df[(df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    elif conducta=='All':
+        dfg_fltrd = df[(df['nom_comuna'] == comuna) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    elif comuna=='All':
+        dfg_fltrd = df[(df['conducta'] == conducta) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    else:
+        dfg_fltrd = df[(df['nom_comuna'] == comuna) & (df['conducta'] == conducta) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
 
 
 
-    crimen_neto_mes = df.groupby(["fecha_mes"])["orden"].count().reset_index()
+
+    crimen_neto_mes = dfg_fltrd.groupby(["fecha_mes"])["orden"].count().reset_index()
     crimen_neto_mes["fecha_mes"] = crimen_neto_mes["fecha_mes"].astype("str")
     crimen_neto_mes["fecha_mes"] = pd.to_datetime(crimen_neto_mes["fecha_mes"])
 
@@ -311,9 +333,21 @@ def display_ts(start_date,end_date,comuna,conducta):
      Input(component_id='nomConducta-dropdown', component_property='value')])
 
 def display_paralell(start_date, end_date, comuna, conducta):
+    if  (comuna=='All') & (conducta=='All'):
+        dfg_fltrd = df[(df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    elif conducta=='All':
+        dfg_fltrd = df[(df['nom_comuna'] == comuna) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    elif comuna=='All':
+        dfg_fltrd = df[(df['conducta'] == conducta) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    else:
+        dfg_fltrd = df[(df['nom_comuna'] == comuna) & (df['conducta'] == conducta) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
 
 
-    fig = px.parallel_categories(df, dimensions=['movil_agresor', 'movil_victima'],
+    fig = px.parallel_categories(dfg_fltrd, dimensions=['movil_agresor', 'movil_victima'],
                                  title='Parallel categories victim/attacker transportation').update_layout(
         title_x=0.5
     )
@@ -330,12 +364,50 @@ def display_paralell(start_date, end_date, comuna, conducta):
      Input(component_id='nomComuna-dropdown', component_property='value'),
      Input(component_id='nomConducta-dropdown', component_property='value')])
 def display_dayheatmap(start_date, end_date, comuna, conducta):
+    if  (comuna=='All') & (conducta=='All'):
+        dfg_fltrd = df[(df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    elif conducta=='All':
+        dfg_fltrd = df[(df['nom_comuna'] == comuna) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    elif comuna=='All':
+        dfg_fltrd = df[(df['conducta'] == conducta) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    else:
+        dfg_fltrd = df[(df['nom_comuna'] == comuna) & (df['conducta'] == conducta) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    
 
-    cross = pd.crosstab(df["categ_crimen"], df["dia_semana"], normalize="index")
+    cross = pd.crosstab(dfg_fltrd["categ_crimen"], dfg_fltrd["dia_semana"], normalize="index")
     cross = np.round(np.divide(cross, 1) * 100, 2)
     fig = px.imshow(cross, text_auto=True)
 
     return fig
+
+@app.callback(
+    Output(component_id='CrimeCountNumber',component_property='children'),
+    [Input(component_id='my-date-picker-range', component_property='start_date'),
+     Input(component_id='my-date-picker-range', component_property='end_date'),
+     Input(component_id='nomComuna-dropdown', component_property='value'),
+     Input(component_id='nomConducta-dropdown', component_property='value')]
+    )
+def displayNumber(start_date, end_date, comuna, conducta):
+    if  (comuna=='All') & (conducta=='All'):
+        dfg_fltrd = df[(df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    elif conducta=='All':
+        dfg_fltrd = df[(df['nom_comuna'] == comuna) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    elif comuna=='All':
+        dfg_fltrd = df[(df['conducta'] == conducta) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+    else:
+        dfg_fltrd = df[(df['nom_comuna'] == comuna) & (df['conducta'] == conducta) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
+        dfg_fltrd.reset_index(inplace=True)
+
+    contador=dfg_fltrd['orden'].count()
+    return contador
+
 
 
 
