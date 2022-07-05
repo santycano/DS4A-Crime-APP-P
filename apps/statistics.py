@@ -21,9 +21,16 @@ DB_PASSWORD = 'Team227pry_' # Replace with the password you just created
 
 engine=create_engine(f'postgresql://{DB_USERNAME}:{DB_PASSWORD}@ds4a-team227-test.cqkc95x5yyj2.us-east-1.rds.amazonaws.com/crimen_bga', max_overflow=20)
 
+cols = [
+        "nom_comuna",
+        "ano",
+        "mes",
+        "dia",
+        "conducta",
+        "fecha",
+    ]
 
-
-df = pd.read_sql_table("crimen_base_ex",engine)
+df = pd.read_sql_table("crimen_base_ex",engine,columns=cols)
 
 # df = df.astype({"armas_medios": "category", "barrios_hecho": "category", "zona": "category", "nom_comuna": "category", "dia_semana": "category",  
 
@@ -31,18 +38,18 @@ df = pd.read_sql_table("crimen_base_ex",engine)
 
 # "estado_civil_persona": "category", "genero": "category", "movil_agresor": "category", "movil_victima": "category","mes":"category"}) 
 
-df2= pd.read_sql_table("crimen_base_ex_mod",engine)
+# df2= pd.read_sql_table("crimen_base_ex_mod",engine)
 
 df['fechaconvert'] = pd.to_datetime(df['fecha'], format="%m/%d/%Y")
 
 
 
 # get relative data folder
-PATH = pathlib.Path(__file__).parent
-DATA_PATH = PATH.joinpath("../datasets").resolve()
+# PATH = pathlib.Path(__file__).parent
+# DATA_PATH = PATH.joinpath("../datasets").resolve()
 
 
-dfg = pd.read_csv(DATA_PATH.joinpath("opsales.csv"))
+# dfg = pd.read_csv(DATA_PATH.joinpath("opsales.csv"))
 
 card = dbc.Card(
     dbc.CardBody(
