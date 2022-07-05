@@ -224,13 +224,13 @@ layout = html.Div([
             html.Div([
              html.Span("Neighborhood",className='leftnavBarInputFont'),
             dcc.Dropdown(options=[{'label': 'All', 'value': 'All'}]+[{'label': str(x), 'value': str(x)} for x in list(df.nom_comuna.unique())],id='nomComuna-dropdown',style={'width':'180px'}, clearable=False,
-                persistence=True, persistence_type='local',),                
+                persistence=True, persistence_type='local',value='All'),                
             ],style={'paddingTop':'10px'}),
 
             html.Div([
              html.Span("Criminal offense",className='leftnavBarInputFont'),
             dcc.Dropdown(options=[{'label': 'All', 'value': 'All'}]+[{'label': str(x), 'value': str(x)} for x in list(df.conducta.unique())], id='nomConducta-dropdown',style={'width':'180px',"display": "inline-block"}, clearable=False,
-                persistence=True, persistence_type='local',optionHeight=100),                 
+                persistence=True, persistence_type='local',optionHeight=100,value='All'),                 
             ],style={'paddingTop':'10px'}),
 
             # html.Div([
