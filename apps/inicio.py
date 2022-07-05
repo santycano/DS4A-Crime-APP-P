@@ -37,9 +37,9 @@ layout = html.Div([
             html.Img(src=app.get_asset_url('imagenes/TeamMembers/Daniela.png'), className='MembersPhothos'),
             html.Span('Daniela Beltran',className='MemebersName'),
             html.Div([
-                html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),
-                html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}),                
-            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'center','alignItems':'center'})
+                html.A(html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),href="mailto:beltrandaniela1@gmail.com"),
+                html.A(html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}), href="https://www.linkedin.com/in/yesica-daniela-beltr%C3%A1n-rodr%C3%ADguez/",target="_blank"),                 
+            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'space-evenly','alignItems':'center'})
        ], style={'display':'flex','margin':'auto','flexWrap': 'wrap','width':'225px','justifyContent':'center','alignItems':'center'}),
         # Daniela Box
 
@@ -48,9 +48,9 @@ layout = html.Div([
             html.Img(src=app.get_asset_url('imagenes/TeamMembers/David.png'), className='MembersPhothos'),
             html.Span('David Rivera',className='MemebersName'),
             html.Div([
-                html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),
-                html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}),                
-            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'center','alignItems':'center'})
+                html.A(html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),href="mailto:davidalrc@gmail.com"),
+                 html.A(html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}), href="https://www.linkedin.com/in/davidalejandroriverac/",target="_blank"),              
+            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'space-evenly','alignItems':'center'})
        ], style={'display':'flex','margin':'auto','flexWrap': 'wrap','width':'225px','justifyContent':'center','alignItems':'center'}),
         # David Box
 
@@ -59,9 +59,9 @@ layout = html.Div([
             html.Img(src=app.get_asset_url('imagenes/TeamMembers/Juan.png'), className='MembersPhothos'),
             html.Span('Juan Gutierrez',className='MemebersName'),
             html.Div([
-                html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),
-                html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}),                
-            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'center','alignItems':'center'})
+                html.A(html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),href="mailto:juan.pablo.gutierrez@correounivalle.edu.co"),
+                html.A(html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}),href="https://www.linkedin.com/in/jpguti/",target="_blank"),                
+            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'space-evenly','alignItems':'center'})
        ], style={'display':'flex','margin':'auto','flexWrap': 'wrap','width':'225px','justifyContent':'center','alignItems':'center'}),
         # Juan Box
 
@@ -70,9 +70,9 @@ layout = html.Div([
             html.Img(src=app.get_asset_url('imagenes/TeamMembers/Carlos.png'), className='MembersPhothos'),
             html.Span('Carlos Arbeláez',className='MemebersName'),
             html.Div([
-                html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),
-                html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}),                
-            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'center','alignItems':'center'})
+                html.A(html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),href="mailto:carlos.arbelaez1@udea.edu.co"), 
+                html.A(html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}),href="https://www.linkedin.com/in/carlos-alfonso-arbel%C3%A1ez-acevedo-53a860233/",target="_blank"),            
+            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'space-evenly','alignItems':'center'})
        ], style={'display':'flex','margin':'auto','flexWrap': 'wrap','width':'225px','justifyContent':'center','alignItems':'center'}),
         # Carlos Arbelaez
 
@@ -82,9 +82,9 @@ layout = html.Div([
             html.Img(src=app.get_asset_url('imagenes/TeamMembers/Fabian.png'), className='MembersPhothos'),
             html.Span('Fabián Ramos',className='MemebersName'),
             html.Div([
-                html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),
-                html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}),                
-            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'center','alignItems':'center'})
+                html.A(html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),href="mailto:mframosh@unal.edu.co"), 
+                html.A(html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}),href="https://www.linkedin.com/in/michael-fabi%C3%A1n-ramos-hern%C3%A1ndez-b84b16113/",target="_blank"),                 
+            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'space-evenly','alignItems':'center'})
        ], style={'display':'flex','margin':'auto','flexWrap': 'wrap','width':'225px','justifyContent':'center','alignItems':'center'}),
         # Fabian Box
 
@@ -93,9 +93,9 @@ layout = html.Div([
             html.Img(src=app.get_asset_url('imagenes/TeamMembers/Josue.png'), className='MembersPhothos'),
             html.Span('Josue Cano',className='MemebersName'),
             html.Div([
-                html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),
-                html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}),                
-            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'center','alignItems':'center'})
+                html.A(html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),href="mailto:josue.cano@udea.edu.co"), 
+                html.A(html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}),href="https://www.linkedin.com/in/josue-cano-9a9385189/",target="_blank"),                
+            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'space-evenly','alignItems':'center'})
        ], style={'display':'flex','margin':'auto','flexWrap': 'wrap','width':'225px','justifyContent':'center','alignItems':'center'}),
         # Josue Cano
 
@@ -105,9 +105,9 @@ layout = html.Div([
             html.Img(src=app.get_asset_url('imagenes/TeamMembers/Nicolas.png'), className='MembersPhothos'),
             html.Span('Nicolas Galvan',className='MemebersName'),
             html.Div([
-                html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),
-                html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}),                
-            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'center','alignItems':'center'})
+                html.A(html.Img(src=app.get_asset_url('imagenes/MailIcon.png'), width='50px',height='50px',style={'padding':'5%'}),href="mailto:nicogalvan1@hotmail.com"), 
+                html.A(html.Img(src=app.get_asset_url('imagenes/LinkedinIcon.png'), width='50px',height='50px',style={'padding':'5%'}), href="https://www.linkedin.com/in/nicolas-galvan-alvarez-26a874b6/",target="_blank"),                
+            ],style={'width':'100%','display':'flex','margin':'auto','justifyContent':'space-evenly','alignItems':'center'})
        ], style={'display':'flex','margin':'auto','flexWrap': 'wrap','width':'225px','justifyContent':'center','alignItems':'center'}),
         # Nicolas Box
 
