@@ -28,6 +28,13 @@ cols = [
         "dia",
         "conducta",
         "fecha",
+        "fecha_mes",
+        "movil_agresor",
+        "movil_victima",
+        "categ_crimen",
+        "dia_semana",
+        "orden",
+        
     ]
 
 df = pd.read_sql_table("crimen_base_ex",engine,columns=cols)
