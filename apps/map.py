@@ -31,7 +31,7 @@ cols = [
         "latitud",
     ]
 
-df = pd.read_sql_table("crimen_base_ex_mod",engine)
+df = pd.read_sql_table("crimen_base_ex_mod",engine,columns=cols)
 df.drop(columns=['neigh'], inplace=True)
 
 cell = pd.read_sql_table("grid",engine,columns=cols)  # Grid read
