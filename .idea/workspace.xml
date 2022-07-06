@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38e7887a-fad5-4735-ac0b-69795bd88de6" name="Changes" comment="requirements updated 1" />
+    <list default="true" id="38e7887a-fad5-4735-ac0b-69795bd88de6" name="Changes" comment="requirements updated 1.1">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,6 +86,7 @@
     <MESSAGE value="Shapely add" />
     <MESSAGE value="requirements updated" />
     <MESSAGE value="requirements updated 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="requirements updated 1" />
+    <MESSAGE value="requirements updated 1.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="requirements updated 1.1" />
   </component>
 </project>
