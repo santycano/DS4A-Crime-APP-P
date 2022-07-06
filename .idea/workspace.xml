@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38e7887a-fad5-4735-ac0b-69795bd88de6" name="Changes" comment="Requirements add">
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    <list default="true" id="38e7887a-fad5-4735-ac0b-69795bd88de6" name="Changes" comment="requirements updated">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +83,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Integration problems fixed" />
     <MESSAGE value="Requirements add" />
-    <option name="LAST_COMMIT_MESSAGE" value="Requirements add" />
+    <MESSAGE value="Shapely add" />
+    <MESSAGE value="requirements updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="requirements updated" />
   </component>
 </project>
