@@ -6,7 +6,7 @@ from dash import html,Dash
 from dash.dependencies import Input, Output
 
 # Connect to main app.py file
-from app import app
+from app import app, server
 
 # Connect to your app pages
 from apps import statistics, map, preditor, inicio  

@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38e7887a-fad5-4735-ac0b-69795bd88de6" name="Changes" comment="Deploy map 1" />
+    <list default="true" id="38e7887a-fad5-4735-ac0b-69795bd88de6" name="Changes" comment="Deploy problems fixed">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/index.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -92,6 +95,7 @@
     <MESSAGE value="Deploy procfile" />
     <MESSAGE value="Deploy map" />
     <MESSAGE value="Deploy map 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Deploy map 1" />
+    <MESSAGE value="Deploy problems fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deploy problems fixed" />
   </component>
 </project>
