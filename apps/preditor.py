@@ -16,9 +16,18 @@ import dash_bootstrap_components as dbc
 DB_USERNAME = 'postgres' # Replace with the username you just created
 DB_PASSWORD = 'Team227pry_' # Replace with the password you just created
 
-engine =create_engine(f'postgresql://{DB_USERNAME}:{DB_PASSWORD}@ds4a-team227-test.cqkc95x5yyj2.us-east-1.rds.amazonaws.com/crimen_bga', max_overflow=20)
+engine = create_engine(f'postgresql://{DB_USERNAME}:{DB_PASSWORD}@ds4a-team227-test.cqkc95x5yyj2.us-east-1.rds.amazonaws.com/crimen_bga', max_overflow=20)
 
-cluster = pd.read_sql_table("cluster",engine)
+cols = [
+    "nom_comuna",
+    "ano",
+    "categ_crimen",
+    "longitud",
+    "latitud",
+    "cluster_predicted"
+]
+
+cluster = pd.read_sql_table("cluster",engine,columns=cols)
 
 cell = pd.read_sql_table("grid",engine)  # Grid read
 df2 = cluster.dropna(subset=['latitud', 'longitud'])

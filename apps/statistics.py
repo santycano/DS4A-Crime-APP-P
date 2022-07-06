@@ -1,29 +1,18 @@
 # import dash_core_components as dcc
 from datetime import date
-from click import style
 from dash import dcc
 from dash import html
-from click import style
 
 from shapely import wkt                     # Geometry manipulation
-from pysal.lib import weights               # Spatial weights
-from pysal.explore import esda              # Exploratory Spatial analytics
-from splot import esda as esdaplot          # Exploratory Spatial analytics
-from sqlalchemy import create_engine, text  # Sql manipulation
 from shapely.geometry import Polygon, Point
 from dash.dependencies import Input, Output
 
-import numpy as np
-import pandas as pd                         # Tabular data manipulation
 import geopandas as gpd                     # Spatial data manipulation
 import plotly.express as px
 import pandas as pd
-import pathlib
 from app import app
 import numpy as np
-import sqlalchemy
 from sqlalchemy import create_engine, text
-import datetime
 
 import dash_bootstrap_components as dbc
 
@@ -34,9 +23,6 @@ engine=create_engine(f'postgresql://{DB_USERNAME}:{DB_PASSWORD}@ds4a-team227-tes
 
 cols = [
         "nom_comuna",
-        "ano",
-        "mes",
-        "dia",
         "conducta",
         "fecha",
         "fecha_mes",
@@ -47,8 +33,6 @@ cols = [
         "orden",
         "longitud",
         "latitud",
-        
-        
     ]
 
 df = pd.read_sql_table("crimen_base_ex",engine,columns=cols)

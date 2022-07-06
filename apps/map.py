@@ -9,7 +9,6 @@ from shapely.geometry import Point
 from sqlalchemy import create_engine        # Sql manipulation
 from dash.dependencies import Input, Output
 
-import numpy as np
 import pandas as pd                         # Tabular data manipulation
 import geopandas as gpd                     # Spatial data manipulation
 import plotly.express as px
@@ -22,22 +21,12 @@ DB_PASSWORD = 'Team227pry_' # Replace with the password you just created
 engine=create_engine(f'postgresql://{DB_USERNAME}:{DB_PASSWORD}@ds4a-team227-test.cqkc95x5yyj2.us-east-1.rds.amazonaws.com/crimen_bga', max_overflow=20)
 
 cols = [
-        "nom_comuna",
         "ano",
-        "mes",
-        "dia",
         "conducta",
-        "fecha",
         "fecha_mes",
-        "movil_agresor",
-        "movil_victima",
-        "categ_crimen",
-        "dia_semana",
         "orden",
         "longitud",
         "latitud",
-        
-        
     ]
 
 df = pd.read_sql_table("crimen_base_ex_mod",engine)
@@ -80,7 +69,7 @@ def map_time():
 def database_set_up(db):
     count = db.groupby(['neigh']).count()['orden'].reset_index()
     count.rename(columns={'orden':'crim_by_neigh'}, inplace=True)
-    db = db.merge(count).drop_duplicates(subset='neigh', keep="last")[['orden', 'neigh', 'geometry', 'nom_comuna', 'crim_by_neigh']]
+    db = db.merge(count).drop_duplicates(subset='neigh', keep="last")[['orden', 'neigh', 'geometry', 'crim_by_neigh']]
 
     # Generate W from the GeoDataFrame
     w = weights.distance.KNN.from_dataframe(db, k=8)
