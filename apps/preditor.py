@@ -13,6 +13,9 @@ import geopandas as gpd                     # Spatial data manipulation
 import plotly.express as px
 import dash_bootstrap_components as dbc
 
+import warnings
+warnings.filterwarnings("ignore")
+
 DB_USERNAME = 'postgres' # Replace with the username you just created
 DB_PASSWORD = 'Team227pry_' # Replace with the password you just created
 

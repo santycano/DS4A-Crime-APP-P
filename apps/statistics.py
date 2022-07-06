@@ -16,6 +16,9 @@ from sqlalchemy import create_engine, text
 
 import dash_bootstrap_components as dbc
 
+import warnings
+warnings.filterwarnings("ignore")
+
 DB_USERNAME = 'postgres' # Replace with the username you just created
 DB_PASSWORD = 'Team227pry_' # Replace with the password you just created
 

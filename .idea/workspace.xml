@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38e7887a-fad5-4735-ac0b-69795bd88de6" name="Changes" comment="timeout">
+    <list default="true" id="38e7887a-fad5-4735-ac0b-69795bd88de6" name="Changes" comment="Depuration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inicio.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inicio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/map.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/preditor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/preditor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/statistics.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/statistics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +95,7 @@
     <MESSAGE value="requirements updated 1.1" />
     <MESSAGE value="requirements updated 2" />
     <MESSAGE value="timeout" />
-    <option name="LAST_COMMIT_MESSAGE" value="timeout" />
+    <MESSAGE value="Depuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Depuration" />
   </component>
 </project>
