@@ -76,7 +76,7 @@ card1 = dbc.Card(
 card2 = dbc.Card(
     dbc.CardBody(
         [
-            html.H4("Cluster distribution by cluster", className="card-title",style={'textAlign':'center'}),
+            html.H4("Cluster distribution by comuna", className="card-title",style={'textAlign':'center'}),
             dcc.Graph(id='comuna_by_cluster', figure={},style={'width':'600px', 'height':'600px'}),
         ]
     ),
@@ -86,13 +86,6 @@ card2 = dbc.Card(
 layout = html.Div([
 
     html.Div([
-
-        html.Div(html.Span('Crime possibilities',style={'fontFamily': 'Inter','fontStyle': 'normal', 'fontWeight': '400','fontSize': '20px', 'lineHeight': '24px', 'color': '#FFFFFF'}),className='CrimeCounterTitle'),
-        html.Div([
-            html.Img(src=app.get_asset_url('imagenes/ExtraIcons/danger.png'),style={'padding':'5px'}),
-            html.Span('99%',className='crimePosibilitiesNumber'),
-
-        ],className='crimeCounter'),
 
         html.Div([
 

@@ -1,1 +1,1 @@
-web: gunicorn index:server --preload --timeout 180
+web: gunicorn index:server

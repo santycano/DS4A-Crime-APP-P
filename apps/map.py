@@ -173,9 +173,8 @@ layout = html.Div([
 
         html.Div(html.Span('Crime counter',style={'fontFamily': 'Inter','fontStyle': 'normal', 'fontWeight': '400','fontSize': '20px', 'lineHeight': '24px', 'color': '#FFFFFF'}),className='CrimeCounterTitle'),
         html.Div([
-            html.Span('11.530',className='crimeCounterNumber'),
+            html.Span(children={},className='crimeCounterNumber', id='CrimeCountNumberMap'),
             html.Img(src=app.get_asset_url('imagenes/ExtraIcons/IconStatistics.png'),style={'padding':'5px'})
-
         ],className='crimeCounter'),
 
         html.Div([
@@ -328,3 +327,13 @@ def moran_subplot4(year_chosen, crime_chosen):
                                labels={'unemp':'unemployment rate'}
                                )
     return fig
+
+@app.callback(
+    Output(component_id='CrimeCountNumberMap',component_property='children'),
+    [Input(component_id='year-dropdown', component_property='value'),
+     Input(component_id='crime-dropdown', component_property='value')]
+)
+def displayNumber(year_chosen, crime_chosen):
+    db = join[(join.conducta == crime_chosen) & (join.ano == year_chosen)]
+    contador = db['orden'].count()
+    return contador

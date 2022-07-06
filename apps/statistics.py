@@ -78,7 +78,7 @@ card = dbc.Card(
 card1 = dbc.Card(
     dbc.CardBody(
         [
-            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            html.H4("Top macrocategories of crime", className="card-title",style={'textAlign':'center'}),
             dcc.Graph(id='my-barplot', figure={},style={'width':'700px'}),
 
         ]
@@ -89,7 +89,7 @@ card1 = dbc.Card(
 carddoble = dbc.Card(
     dbc.CardBody(
         [
-            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            html.H4("Spatial distribution of crime", className="card-title",style={'textAlign':'center'}),
             dcc.Graph(id='mapa', figure={},style={'width':'700px','height':'1000px'}),
 
         ]
@@ -100,7 +100,7 @@ carddoble = dbc.Card(
 card2 = dbc.Card(
     dbc.CardBody(
         [
-            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            html.H4("Total of crimes ocurred in Bucaramanga by month", className="card-title",style={'textAlign':'center'}),
             dcc.Graph(id='my-time-serie', figure={},style={'width':'700px'}),
 
         ]
@@ -112,7 +112,7 @@ card2 = dbc.Card(
 card3 = dbc.Card(
     dbc.CardBody(
         [
-            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            html.H4("Parallel categories victim/attacker transportation", className="card-title",style={'textAlign':'center'}),
             dcc.Graph(id='my-paralell', figure={},style={'width':'700px'}),
 
         ]
@@ -125,9 +125,8 @@ card3 = dbc.Card(
 card4 = dbc.Card(
     dbc.CardBody(
         [
-            html.H4("Title", className="card-title",style={'textAlign':'center'}),
+            html.H4("Distribution of crime over day of week normalized", className="card-title",style={'textAlign':'center'}),
             dcc.Graph(id='my-heat-map', figure={},style={'width':'700px'}),
-
         ]
     ),
     style={"width": "100%"},class_name='card border-primary',
@@ -261,7 +260,7 @@ def display_barplot(start_date,end_date,comuna,conducta):
         dfg_fltrd.reset_index(inplace=True)    
 
     fig = px.bar(dfg_fltrd.categ_crimen.value_counts().sort_values(ascending=True).head(10), orientation="h",
-                 title='Top 10 Type of crime', color_discrete_sequence=px.colors.qualitative.Bold).update_layout(
+                  color_discrete_sequence=px.colors.qualitative.Bold).update_layout(
         xaxis_title="Frequency", yaxis_title="Crime Macro-Category", title_x=0.5,
         template="simple_white")
 
@@ -300,8 +299,7 @@ def display_ts(start_date,end_date,comuna,conducta):
 
     crimen_neto_mes.rename(columns={'fecha_mes': 'Month', 'orden': 'Quantity'}, inplace=True)
 
-    fig = px.line(crimen_neto_mes, x="Month", y="Quantity",
-                  title='Total of crimes ocurred in Bucaramanga by month').update_layout(
+    fig = px.line(crimen_neto_mes, x="Month", y="Quantity").update_layout(
         title_x=0.5
     )
 
@@ -331,8 +329,7 @@ def display_paralell(start_date, end_date, comuna, conducta):
         dfg_fltrd.reset_index(inplace=True)
 
 
-    fig = px.parallel_categories(dfg_fltrd, dimensions=['movil_agresor', 'movil_victima'],
-                                 title='Parallel categories victim/attacker transportation').update_layout(
+    fig = px.parallel_categories(dfg_fltrd, dimensions=['movil_agresor', 'movil_victima']).update_layout(
         title_x=0.5
     )
 

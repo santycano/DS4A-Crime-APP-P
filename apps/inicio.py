@@ -4,13 +4,12 @@ from dash import html
 from app import app
 
 layout = html.Div([
-    html.H1('Bucaramanga Crime Predictor', style={"textAlign": "center"},className='Cindex'),
+    html.H1('Bucaramanga Crime Analyzer', style={"textAlign": "center"},className='Cindex'),
     html.Img(src=app.get_asset_url('imagenes/banner1-4.jpg'),width='90%', style={'display':'block','margin':'auto','height':'400px'} ),
     # html.Img(src=app.get_asset_url('imagenes/bannerInicio.png'),width='83%', style={'display':'block','margin':'auto','height':'400px'} ),
     html.P([f'The crime is a complex and multifactorial issue, then the figth against crime need ways to focus the actions with the end of be more effective and efficient to focus police actions but also to focus social policie that impact poverty, unemployment and other variables that boost inequality. The Bucaramanga crime predictor is a tool that have the objective of give an inter-temporal comprehension of crime that afford the understanding of prevalent clusters and the emerging crime hotspots by mean of:' 
         ,html.Br(),'- General EDA of the crime dynamic in the city of Bucaramanga',
         html.Br(),'- Spatial Cluster Analysis of crime',
-        html.Br(),'- Zone profiler that show the potential probability of being affected by the most prevalent crimes according to characteristics of the citizen.',
 
 ], className='parrafo'),
     html.Iframe(src='https://www.youtube.com/embed/bDJXR5S8Bso',referrerPolicy='no-referrer',width='66%',height='683',title="YouTube video player",allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture", style={'display':'block','margin':'auto'} ),
