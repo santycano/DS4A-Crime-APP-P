@@ -6,6 +6,7 @@ gunicorn==20.1.0
 numpy==1.22.3
 pandas==1.4.2
 plotly==5.8.0
+psycopg2==2.9.3
 pysal==2.1.0
 Shapely==1.8.2
 splot==1.1.3
