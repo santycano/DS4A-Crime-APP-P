@@ -53,6 +53,7 @@ cols = [
 
 df = pd.read_sql_table("crimen_base_ex",engine,columns=cols)
 
+df['fechaconvert'] = pd.to_datetime(df['fecha'], format="%m/%d/%Y")
 
 cell = pd.read_sql_table("grid",engine)  # Grid read
 df2 = df.dropna(subset=['latitud', 'longitud'])
@@ -74,12 +75,6 @@ cell = cell.drop(['geometry'], axis=1)
 cell = gpd.GeoDataFrame(cell, geometry=geometry, crs = crs)
 
 join = gpd.sjoin(gdf, cell, how='left')
-
-
-
-df['fechaconvert'] = pd.to_datetime(df['fecha'], format="%m/%d/%Y")
-
-
 
 
 
@@ -108,7 +103,7 @@ carddoble = dbc.Card(
     dbc.CardBody(
         [
             html.H4("Title", className="card-title",style={'textAlign':'center'}),
-            dcc.Graph(id='my-barplot', figure={},style={'width':'700px','height':'1000px'}),
+            dcc.Graph(id='mapa', figure={},style={'width':'700px','height':'1000px'}),
 
         ]
     ),
@@ -151,22 +146,6 @@ card4 = dbc.Card(
     style={"width": "100%"},class_name='card border-primary',
 )
 
-cardMapa = dbc.Card(
-    dbc.CardBody(
-        [
-            html.H4("Distribución espacial del crimen", className="card-title",style={'textAlign':'center'}),
-            dcc.Graph(id='mapa', figure={},style={'width':'450px'}),
-        ]
-    ),
-    style={"width": "28rem"},class_name='card border-primary',
-)
-
-
-
-
-
-
-
 layout = html.Div([
 
     html.Div([
@@ -184,8 +163,6 @@ layout = html.Div([
 
              html.Div([
                 html.Span('Date',className='leftnavBarInputFont'),
-            # dcc.Dropdown(options=[{'label': x, 'value': x} for x in sorted(dfg["Order Country"].unique())], id='country-dropdown',style={'width':'180px'},value='India', clearable=False,
-            #     persistence=True, persistence_type='local',),
             dcc.DatePickerRange(
                 id='my-date-picker-range',
                 min_date_allowed=date(1995, 8, 5),
@@ -224,10 +201,6 @@ layout = html.Div([
     ],className='TituloSecciones'),
 
     dbc.Row([
-        dbc.Col([cardMapa],style={'marginTop':'1.5rem'}),
-    ],style={'marginLeft':'300px','display':'flex','justifyContent':'space-between','marginRight':'100px','flexWrap':'wrap'}),
-
-    dbc.Row([
        dbc.Col([carddoble],style={'marginTop':'1.5rem'}), dbc.Col([card1,card2],style={'marginTop':'1.5rem'}), dbc.Col([card3],style={'marginTop':'1.5rem'}),dbc.Col([card4],style={'marginTop':'1.5rem'}),
     ],style={'marginLeft':'300px','display':'flex','justifyContent':'space-between','marginRight':'100px','flexWrap':'wrap','marginBottom':'50px'}),
 
@@ -235,11 +208,25 @@ layout = html.Div([
 
 @app.callback(
     Output(component_id='mapa', component_property='figure'),
-    [Input(component_id='year-dropdown', component_property='value'),
-     Input(component_id='crime-dropdown', component_property='value')]
+    [Input(component_id='my-date-picker-range', component_property='start_date'),
+     Input(component_id='my-date-picker-range', component_property='end_date'),
+     Input(component_id='nomComuna-dropdown', component_property='value'),
+     Input(component_id='nomConducta-dropdown', component_property='value')]
 )
-def display_value(year_chosen, crime_chosen):
-    join1 = join[(join.categ_crimen == crime_chosen) & (join.ano == year_chosen)]
+def display_value(start_date,end_date,comuna,conducta):
+    if  (comuna=='All') & (conducta=='All'):
+        join1 = join[(join['fechaconvert'] <= end_date) & (join['fechaconvert'] >= start_date)]
+        join1.reset_index(inplace=True)
+    elif conducta=='All':
+        join1 = join[(join['nom_comuna'] == comuna) & (join['fechaconvert'] <= end_date) & (join['fechaconvert'] >= start_date)]
+        join1.reset_index(inplace=True)
+    elif comuna=='All':
+        join1 = join[(join['conducta'] == conducta) & (join['fechaconvert'] <= end_date) & (join['fechaconvert'] >= start_date)]
+        join1.reset_index(inplace=True)
+    else:
+        join1 = join[(join['nom_comuna'] == comuna) & (join['conducta'] == conducta) & (join['fechaconvert'] <= end_date) & (join['fechaconvert'] >= start_date)]
+        join1.reset_index(inplace=True)
+
     join1 = join1.groupby(['neigh']).orden.count().reset_index().rename({'orden':'crime_count'}, axis=1)
 
     data = []
