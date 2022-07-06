@@ -21,14 +21,27 @@ DB_PASSWORD = 'Team227pry_' # Replace with the password you just created
 
 engine=create_engine(f'postgresql://{DB_USERNAME}:{DB_PASSWORD}@ds4a-team227-test.cqkc95x5yyj2.us-east-1.rds.amazonaws.com/crimen_bga', max_overflow=20)
 
+cols = [
+        "nom_comuna",
+        "ano",
+        "mes",
+        "dia",
+        "conducta",
+        "fecha",
+        "fecha_mes",
+        "movil_agresor",
+        "movil_victima",
+        "categ_crimen",
+        "dia_semana",
+        "orden",
+        "longitud",
+        "latitud",
+        
+        
+    ]
+
 df = pd.read_sql_table("crimen_base_ex_mod",engine)
 df.drop(columns=['neigh'], inplace=True)
-df = df.astype({"armas_medios": "category", "barrios_hecho": "category", "zona": "category", "nom_comuna": "category", "dia_semana": "category",
-                "descripcion_conducta": "category", "conducta": "category", "clasificaciones_delito": "category", "curso_de_vida": "category",
-                "estado_civil_persona": "category", "genero": "category", "movil_agresor": "category", "movil_victima": "category","mes":"category"})
-
-df["dia_semana"] = df["dia_semana"].cat.reorder_categories(["01. Lunes","02. Martes","03. Miércoles","04. Jueves",
-                                                            "05. Viernes","06. Sábado","07. Domingo"])
 
 cell = pd.read_sql_table("grid",engine)  # Grid read
 df2 = df.dropna(subset=['latitud', 'longitud'])
