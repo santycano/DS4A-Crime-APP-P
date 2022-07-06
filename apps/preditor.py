@@ -53,6 +53,8 @@ cell = gpd.GeoDataFrame(cell, geometry=geometry, crs = crs)
 
 join = gpd.sjoin(gdf, cell, how='left')
 
+del gdf, df2, lat_lon, geometry, crs, cols
+
 card = dbc.Card(
     dbc.CardBody(
         [
@@ -128,9 +130,10 @@ def cluster_map(year_chosen):
                                mapbox_style="carto-positron",
                                zoom=12, center = {"lat": 7.12539, "lon": -73.1198},
                                opacity=0.5,
-                               labels={'unemp':'unemployment rate'}
+                               labels={'cluster_predicted':'Cluster'}
                                )
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    del join1
     return fig
 
 @app.callback(
@@ -138,10 +141,11 @@ def cluster_map(year_chosen):
     [Input(component_id='year-dropdown', component_property='value')]
 )
 def crime_category_by_cluster(year_chosen):
-    stack_cluster= cluster[cluster.ano == year_chosen].groupby(["cluster_predicted","categ_crimen"]).size().reset_index()
+    stack_cluster = cluster[cluster.ano == year_chosen].groupby(["cluster_predicted","categ_crimen"]).size().reset_index()
     stack_cluster["Proportion"] = cluster[cluster.ano == year_chosen].groupby(["cluster_predicted","categ_crimen"]).size().groupby(level=0).apply(lambda x:100 *x/float(x.sum())).values
     stack_cluster.rename(columns={0:"count","cluster_predicted":"cluster","categ_crimen":"Crime Category"},inplace=True)
     fig= px.bar(stack_cluster,x="cluster",y="count",color="Crime Category",barmode="stack")
+    del stack_cluster
     return fig
 
 @app.callback(
@@ -154,4 +158,5 @@ def comuna_by_cluster(year_chosen):
     stack_comunas.rename(columns={0:"count","cluster_predicted":"cluster","nom_comuna":"comuna"},inplace=True)
     fig= px.bar(stack_comunas,x="comuna",y="count",color="cluster",barmode="stack",
                 color_continuous_scale="viridis")
+    del stack_comunas
     return fig

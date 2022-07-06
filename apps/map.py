@@ -34,17 +34,17 @@ cols = [
 df = pd.read_sql_table("crimen_base_ex_mod",engine,columns=cols)
 
 cell = pd.read_sql_table("grid",engine)  # Grid read
-df2 = df.dropna(subset=['latitud', 'longitud'])
+df = df.dropna(subset=['latitud', 'longitud'])
 
 crs = {'init':'epsg:4326'}
 
 lat_lon = []
-for i in zip(df2.longitud, df2.latitud):
+for i in zip(df.longitud, df.latitud):
     lat_lon.append(Point(eval(str(i))))
 
-df2 = df2.drop(columns=['longitud', 'latitud'])
+df = df.drop(columns=['longitud', 'latitud'])
 
-gdf = gpd.GeoDataFrame(df2, geometry=lat_lon, crs = crs)
+gdf = gpd.GeoDataFrame(df, geometry=lat_lon, crs = crs)
 
 # Geometry set up grid
 cell['geometry'] = cell['geometry'].apply(wkt.loads)
@@ -53,6 +53,8 @@ cell = cell.drop(['geometry'], axis=1)
 cell = gpd.GeoDataFrame(cell, geometry=geometry, crs = crs)
 
 join = gpd.sjoin(gdf, cell, how='left')
+
+del gdf, df, lat_lon, geometry, crs, cols
 
 def map_time():
     join1 = join.groupby(['fecha_mes', 'neigh']).orden.count().reset_index().rename({'orden':'crime_count'}, axis=1)
@@ -63,15 +65,16 @@ def map_time():
                                mapbox_style="carto-positron",
                                zoom=11, center = {"lat": 7.12539, "lon": -73.1198},
                                opacity=0.5,
-                               labels={'unemp':'unemployment rate'}
+                               labels={'crime_count':'Crime count'}
                                )
+    del join1
     return fig
 
 def database_set_up(db):
     count = db.groupby(['neigh']).count()['orden'].reset_index()
     count.rename(columns={'orden':'crim_by_neigh'}, inplace=True)
     db = db.merge(count).drop_duplicates(subset='neigh', keep="last")[['orden', 'neigh', 'geometry', 'crim_by_neigh']]
-
+    del count
     # Generate W from the GeoDataFrame
     w = weights.distance.KNN.from_dataframe(db, k=8)
 
@@ -86,7 +89,7 @@ def database_set_up(db):
     db['w_crim_by_neigh_std'] = ( db['w_crim_by_neigh'] - db['crim_by_neigh'].mean())
 
     lisa = esda.moran.Moran_Local(db['crim_by_neigh'], w)
-
+    del w
     # Assign new column with local statistics on-the-fly
     db['Is'] = lisa.Is
 
@@ -104,7 +107,7 @@ def database_set_up(db):
 
     db['q_sig'] = lisa.q * labels
     db.q_sig = db.q_sig.map({0: 'ns', 1: 'HH', 2: 'LH', 3: 'LL', 4: 'HL'})
-
+    del labels
     return db
 
 card = dbc.Card(
@@ -231,7 +234,7 @@ def spatial_lag_std_plot(year_chosen, crime_chosen):
     db = database_set_up(db)
 
     # Plot values
-    fig = px.scatter(db, x="crim_by_neigh_std", y="w_crim_by_neigh_std", trendline="ols", title='Crime count by zone')
+    fig = px.scatter(db, x="crim_by_neigh_std", y="w_crim_by_neigh_std", trendline="ols", labels={"crim_by_neigh_std": "Crime by neigh",  "w_crim_by_neigh_std": "Crime by neigh weighted"})
 
     # Add vertical and horizontal lines
     fig.add_hline(0)
@@ -242,6 +245,8 @@ def spatial_lag_std_plot(year_chosen, crime_chosen):
     fig.add_annotation(x=db.crim_by_neigh_std.quantile(0.9), y=db.w_crim_by_neigh_std.quantile(0.1), text='HL', font=dict(size=20, color="red"))
     fig.add_annotation(x=db.crim_by_neigh_std.quantile(0.1), y=db.w_crim_by_neigh_std.quantile(0.9), text='LH', font=dict(size=20, color="red"))
     fig.add_annotation(x=db.crim_by_neigh_std.quantile(0.1), y=db.w_crim_by_neigh_std.quantile(0.1), text='LL', font=dict(size=20, color="red"))
+
+    del db
 
     return fig
 
@@ -265,8 +270,10 @@ def moran_subplot1(year_chosen, crime_chosen):
                                mapbox_style="carto-positron",
                                zoom=11, center = {"lat": 7.12539, "lon": -73.1198},
                                opacity=0.5,
-                               labels={'unemp':'unemployment rate'}
+                               labels={'Is':'unemployment rate'}
                                )
+    del db
+
     return fig
 
 @app.callback(
@@ -285,8 +292,11 @@ def moran_subplot2(year_chosen, crime_chosen):
                                mapbox_style="carto-positron",
                                zoom=11, center = {"lat": 7.12539, "lon": -73.1198},
                                opacity=0.5,
-                               labels={'unemp':'unemployment rate'}
+                               labels={'q':'Type of neigh'}
                                )
+
+    del db
+
     return fig
 
 @app.callback(
@@ -304,8 +314,11 @@ def moran_subplot3(year_chosen, crime_chosen):
                                mapbox_style="carto-positron",
                                zoom=11, center = {"lat": 7.12539, "lon": -73.1198},
                                opacity=0.5,
-                               labels={'unemp':'unemployment rate'}
+                               labels={'cl':'Significance of neigh'}
                                )
+
+    del db
+
     return fig
 
 @app.callback(
@@ -324,8 +337,11 @@ def moran_subplot4(year_chosen, crime_chosen):
                                mapbox_style="carto-positron",
                                zoom=11, center = {"lat": 7.12539, "lon": -73.1198},
                                opacity=0.5,
-                               labels={'unemp':'unemployment rate'}
+                               labels={'q_sig':'Type by significance'}
                                )
+
+    del db
+
     return fig
 
 @app.callback(
@@ -336,4 +352,5 @@ def moran_subplot4(year_chosen, crime_chosen):
 def displayNumber(year_chosen, crime_chosen):
     db = join[(join.conducta == crime_chosen) & (join.ano == year_chosen)]
     contador = db['orden'].count()
+    del db
     return contador

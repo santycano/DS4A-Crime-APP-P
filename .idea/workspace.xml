@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38e7887a-fad5-4735-ac0b-69795bd88de6" name="Changes" comment="Deploy server">
+    <list default="true" id="38e7887a-fad5-4735-ac0b-69795bd88de6" name="Changes" comment="Title fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inicio.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inicio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/map.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/preditor.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/preditor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/statistics.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/statistics.py" afterDir="false" />
@@ -28,13 +26,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="index" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DS4A-Crime-APP" />
@@ -102,6 +100,7 @@
     <MESSAGE value="Deploy map 1" />
     <MESSAGE value="Deploy problems fixed" />
     <MESSAGE value="Deploy server" />
-    <option name="LAST_COMMIT_MESSAGE" value="Deploy server" />
+    <MESSAGE value="Title fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Title fixed" />
   </component>
 </project>

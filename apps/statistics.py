@@ -63,7 +63,7 @@ cell = gpd.GeoDataFrame(cell, geometry=geometry, crs = crs)
 
 join = gpd.sjoin(gdf, cell, how='left')
 
-
+del gdf, df2, lat_lon, geometry, crs, cols
 
 card = dbc.Card(
     dbc.CardBody(
@@ -235,11 +235,11 @@ def display_value(start_date,end_date,comuna,conducta):
                                mapbox_style="carto-positron",
                                zoom=12, center = {"lat": 7.12539, "lon": -73.1198},
                                opacity=0.5,
-                               labels={'unemp':'unemployment rate'}
+                               labels={'crime_count':'Crime count'}
                                )
 
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-
+    del join1, data
     return fig
 
 
@@ -263,7 +263,7 @@ def display_barplot(start_date,end_date,comuna,conducta):
                   color_discrete_sequence=px.colors.qualitative.Bold).update_layout(
         xaxis_title="Frequency", yaxis_title="Crime Macro-Category", title_x=0.5,
         template="simple_white")
-
+    del dfg_fltrd
     return fig
 
 
@@ -293,16 +293,16 @@ def display_ts(start_date,end_date,comuna,conducta):
 
 
 
-    crimen_neto_mes = dfg_fltrd.groupby(["fecha_mes"])["orden"].count().reset_index()
-    crimen_neto_mes["fecha_mes"] = crimen_neto_mes["fecha_mes"].astype("str")
-    crimen_neto_mes["fecha_mes"] = pd.to_datetime(crimen_neto_mes["fecha_mes"])
+    dfg_fltrd = dfg_fltrd.groupby(["fecha_mes"])["orden"].count().reset_index()
+    dfg_fltrd["fecha_mes"] = dfg_fltrd["fecha_mes"].astype("str")
+    dfg_fltrd["fecha_mes"] = pd.to_datetime(dfg_fltrd["fecha_mes"])
 
-    crimen_neto_mes.rename(columns={'fecha_mes': 'Month', 'orden': 'Quantity'}, inplace=True)
+    dfg_fltrd.rename(columns={'fecha_mes': 'Month', 'orden': 'Quantity'}, inplace=True)
 
-    fig = px.line(crimen_neto_mes, x="Month", y="Quantity").update_layout(
+    fig = px.line(dfg_fltrd, x="Month", y="Quantity").update_layout(
         title_x=0.5
     )
-
+    del dfg_fltrd
     return fig
 
 ## Paralell coordinates of weapons
@@ -332,7 +332,7 @@ def display_paralell(start_date, end_date, comuna, conducta):
     fig = px.parallel_categories(dfg_fltrd, dimensions=['movil_agresor', 'movil_victima']).update_layout(
         title_x=0.5
     )
-
+    del dfg_fltrd
     return fig
 
 
@@ -357,11 +357,13 @@ def display_dayheatmap(start_date, end_date, comuna, conducta):
     else:
         dfg_fltrd = df[(df['nom_comuna'] == comuna) & (df['conducta'] == conducta) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
         dfg_fltrd.reset_index(inplace=True)
-    
 
-    cross = pd.crosstab(dfg_fltrd["categ_crimen"], dfg_fltrd["dia_semana"], normalize="index")
-    cross = np.round(np.divide(cross, 1) * 100, 2)
-    fig = px.imshow(cross, text_auto=True)
+
+    dfg_fltrd = pd.crosstab(dfg_fltrd["categ_crimen"], dfg_fltrd["dia_semana"], normalize="index")
+    dfg_fltrd = np.round(np.divide(dfg_fltrd, 1) * 100, 2)
+    fig = px.imshow(dfg_fltrd, text_auto=True)
+
+    del dfg_fltrd
 
     return fig
 
@@ -386,8 +388,7 @@ def displayNumber(start_date, end_date, comuna, conducta):
         dfg_fltrd = df[(df['nom_comuna'] == comuna) & (df['conducta'] == conducta) & (df['fechaconvert'] <= end_date) & (df['fechaconvert'] >= start_date)]
         dfg_fltrd.reset_index(inplace=True)
 
-    contador=dfg_fltrd['orden'].count()
-    return contador
+    return dfg_fltrd['orden'].count()
 
 
 
